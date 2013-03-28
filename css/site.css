@@ -1,0 +1,17 @@
+/* 
+    Document   : site
+    Created on : 10/11/2012, 04:55:25 PM
+    Author     : xogost
+    Description:
+        Purpose of the stylesheet follows.
+*/
+
+/* 
+   TODO customize this sample style
+   Syntax recommendation http://www.w3.org/TR/REC-CSS2/
+*/
+.site-index{width: 80%; margin: 80px auto; text-align: center;}
+.site-index p { width: inherit; margin: 50px auto; text-align: justify;}
+.site-index legend {text-align: left; padding-left: 100px;}
+.control{width: 100%; text-align: left; padding-left: 100px;}
+
