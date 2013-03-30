@@ -4,6 +4,9 @@
     .btnMe{ clear: both; display:block;}
 </style>
 <script type="text/javascript">
+    var GLOBAL = {
+        valores : [1,2,3]
+    };
     $(document).ready(function(){
         $("#categoria").change(function(){
             $.ajax({
@@ -96,6 +99,45 @@
         });
         
     }
+    function validaOrden(id){
+        if(id.value == "") return true;
+        switch(id.id){
+            case 'ordencomic':
+                desabilidaOption('ordenvideos',id.value);
+                desabilidaOption('ordenactividades',id.value);
+                verificaQueOptionHabilitar('ordenvideos','ordenactividades');
+                break;
+            case 'ordenvideos':
+                desabilidaOption('ordencomic',id.value);
+                desabilidaOption('ordenactividades',id.value);
+                break;
+            case 'ordenactividades':
+                desabilidaOption('ordenvideos',id.value);
+                desabilidaOption('ordencomic',id.value);
+                break;
+        }
+        
+        console.log(id.value,id.id);
+        
+//        console.log(id.id);
+    }
+    function verificaQueOptionHabilitar(select1,select2){
+        var val1 = document.getElementById(select1).value;
+        var val2 = document.getElementById(select2).value;
+        if(val1 != ""){
+            
+        }
+//        if(document.getElementById(select1).value == "")
+    }
+    function desabilidaOption(id,valor){
+        var opt = document.getElementById(id).getElementsByTagName("option");
+        for(var i = 0;i < opt.length;i++){
+            if(opt[i].value == valor){
+                opt[i].disabled = true;
+            }
+        }
+        return true;
+    }
 </script>
 <div class="content">
     <h1>Creacion de rutas de aprendizaje</h1>
@@ -110,7 +152,7 @@
     </select>
     <legend>Comics Correspondientes a la categoria seleccionada.</legend>
     <ul id="comic"></ul>
-    <div style="clear: both;">* Orden: <select id="ordencomic"><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+    <div style="clear: both;">* Orden: <select id="ordencomic" onchange="validaOrden(this);"><option value="">Elija</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
     <legend>Videos Correspondientes a la categoria seleccionada.</legend>
     <ul id="videos"></ul>
     <div style="clear: both;">* Orden: <select id="ordenvideos" ><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>

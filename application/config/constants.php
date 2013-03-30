@@ -17,6 +17,9 @@ define('FILE_READ_MODE', 0644);
 define('FILE_WRITE_MODE', 0666);
 define('DIR_READ_MODE', 0755);
 define('DIR_WRITE_MODE', 0777);
+define('NOMBRE_BD_MOODLE', "moodle_tesis");
+define('ID_DOCENTE_MOODLE', 3);
+define('ID_ESTUDIANTE_MOODLE', 5);
 
 /*
 |--------------------------------------------------------------------------
