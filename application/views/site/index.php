@@ -1,6 +1,6 @@
 <script type="text/javascript">
-    var estudiante = "5";
-    var docente = "3";
+    var estudiante = "<?php echo ID_ESTUDIANTE_MOODLE; ?>";
+    var docente = "<?php echo ID_DOCENTE_MOODLE; ?>";
     var rol = "<?php echo $role_id; ?>";
     $(function(){
         
