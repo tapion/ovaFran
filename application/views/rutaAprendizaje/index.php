@@ -5,9 +5,11 @@
 </style>
 <script type="text/javascript">
     var GLOBAL = {
-        valores : [1,2,3]
+        valores : [1,2,3],
+        combos: ['ordencomic','ordenvideos','ordenactividades']
     };
     $(document).ready(function(){
+        disparaCombos();
         $("#categoria").change(function(){
             $.ajax({
                 url: "<?php echo base_url("index.php/rutaAprendizaje/readFiles"); ?>", 
@@ -19,7 +21,6 @@
                     for(i=2; i < archivos.videos.length; i++){
                         listadoDeArchivos += "<li><input type='radio' name='videos' value='" + archivos.videos[i] + "'>" + archivos.videos[i] + "</li>";
                     }
-                    //$("#videos").html(listadoDeArchivos);
                     listadoDeArchivos = "";
                     for(i=2; i < archivos.comic.length; i++){
                         //listadoDeArchivos += "<li><input type='radio' name='comic' value='" + archivos.comic[i] + "'>" + archivos.comic[i] + "</li>";
@@ -100,12 +101,14 @@
         
     }
     function validaOrden(id){
-        if(id.value == "") return true;
+        if(id.value == ""){
+            verificaQueOptionHabilitar();
+            return true;
+        }
         switch(id.id){
             case 'ordencomic':
                 desabilidaOption('ordenvideos',id.value);
                 desabilidaOption('ordenactividades',id.value);
-                verificaQueOptionHabilitar('ordenvideos','ordenactividades');
                 break;
             case 'ordenvideos':
                 desabilidaOption('ordencomic',id.value);
@@ -116,18 +119,35 @@
                 desabilidaOption('ordencomic',id.value);
                 break;
         }
-        
-        console.log(id.value,id.id);
-        
-//        console.log(id.id);
+        verificaQueOptionHabilitar();
+        return true;
     }
-    function verificaQueOptionHabilitar(select1,select2){
-        var val1 = document.getElementById(select1).value;
-        var val2 = document.getElementById(select2).value;
-        if(val1 != ""){
-            
+    function verificaQueOptionHabilitar(){
+        var arrNoHabilita = new Array();
+        for(var i = 0; i < GLOBAL.combos.length; i++){
+            for(var c = 0; c < GLOBAL.valores.length; c++){
+                if(GLOBAL.valores[c] == document.getElementById(GLOBAL.combos[i]).value){
+                    arrNoHabilita.push(GLOBAL.valores[c]);
+                }
+            }
         }
-//        if(document.getElementById(select1).value == "")
+        for(var c = 0; c < GLOBAL.valores.length; c++){
+            if(arrNoHabilita.indexOf(GLOBAL.valores[c]) === -1){
+                habilitaOpcion(GLOBAL.valores[c]);
+            }
+        }
+        return true;
+    }
+    function habilitaOpcion(valor){
+        for(var c = 0; c < GLOBAL.combos.length; c++){
+            var opt = document.getElementById(GLOBAL.combos[c]).getElementsByTagName("option");
+            for(var i = 0;i < opt.length;i++){
+                if(opt[i].value == valor){
+                    opt[i].disabled = false;
+                }
+            }
+        }
+        return true;
     }
     function desabilidaOption(id,valor){
         var opt = document.getElementById(id).getElementsByTagName("option");
@@ -137,6 +157,11 @@
             }
         }
         return true;
+    }
+    function disparaCombos(){
+        for(var c = 0; c < GLOBAL.combos.length; c++){
+            validaOrden(document.getElementById(GLOBAL.combos[c]));
+        }
     }
 </script>
 <div class="content">
@@ -155,10 +180,10 @@
     <div style="clear: both;">* Orden: <select id="ordencomic" onchange="validaOrden(this);"><option value="">Elija</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
     <legend>Videos Correspondientes a la categoria seleccionada.</legend>
     <ul id="videos"></ul>
-    <div style="clear: both;">* Orden: <select id="ordenvideos" ><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
+    <div style="clear: both;">* Orden: <select id="ordenvideos" onchange="validaOrden(this);"><option value="">Elija</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
     <legend>Actividades Correspondientes a la categoria seleccionada.</legend>
     <ul id="actividades"></ul>
-    <div style="clear: both;">* Orden: <select id="ordenactividades" ><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> </div>
+    <div style="clear: both;">* Orden: <select id="ordenactividades" onchange="validaOrden(this);"><option value="">Elija</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> </div>
     <legend>Tests Correspondientes a la categoria seleccionada.</legend>
     <ul id="test"></ul>
     <div style="clear: both;">* Orden: <select id="ordentest" ><option value="4">4</option></select></div>
