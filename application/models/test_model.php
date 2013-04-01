@@ -15,7 +15,6 @@ class Test_model extends CI_Model {
 
     function create($data) {
         $this->nombre = $data['nombre'];
-        $this->valor = $data['valor'];
         $this->fechacreacion = $data['fechacreacion'];
         $this->fechaactualizacion = $data['fechaactualizacion'];
         $this->usuario_id = $data['usuario_id'];
@@ -53,6 +52,12 @@ class Test_model extends CI_Model {
         $this->db->delete('test');
 
         return $this->db->affected_rows();
+    }
+    public function todosConTotal($where = "1 = 1"){
+        return $this->db->query("SELECT tes.id,tes.nombre,sum(pre.valor) as total,tes.valor,tes.fechacreacion,tes.tipo FROM test tes 
+                                inner join preguntas pre on pre.idtest = tes.id
+                                where $where
+                                group by tes.id order by tes.nombre");
     }
 
 }

@@ -9,7 +9,7 @@ class Test extends CI_Controller {
 
     function index() {
         $this->load->model("Test_model", '', true);
-        $dataTest = $this->Test_model->selectAll();
+        $dataTest = $this->Test_model->todosConTotal();
         $parameters = array("testArray" => $dataTest);
         $parametersView = array(
             array("view" => 'test/list_view', "parameters" => $parameters)
@@ -26,24 +26,26 @@ class Test extends CI_Controller {
 
     function form_update($id) {
         $this->load->model("Test_model", '', true);
-        $row = $this->Test_model->selectOne($id)->result();
-        if (isset($row[0]->nombre))
-            $parameters = array("id" => $id, "fechacreacion" => $row[0]->fechacreacion, "nombre" => $row[0]->nombre, "valor" => $row[0]->valor, "tipo" => $row[0]->tipo, "placeholder" => 'Nombre No Asignado ...');
-        else
-            $parameters = array("id" => $id, "fechacreacion" => $row[0]->fechacreacion, "nombre" => '', "placeholder" => 'Nombre No Asignado ...');
-
+        $row = $this->Test_model->todosConTotal("tes.id = $id")->result();
+        $variables = array();
+        $variables["totPreguntas"] = $row[0]->total;
+        $variables["id"] = $id;
+        $variables["fechacreacion"] = $row[0]->fechacreacion;
+        $variables["nombre"] = (isset($row[0]->nombre))?$row[0]->nombre:"";
+        $variables["valor"] = $row[0]->valor;
+        $variables["tipo"] = $row[0]->tipo;
+        $variables["placeholder"] = 'Nombre No Asignado ...';
         $parametersView = array(
-            array("view" => 'test/update_view', "parameters" => $parameters)
+            array("view" => 'test/update_view', "parameters" => $variables)
         );
         site::loadView($parametersView);
     }
 
     function insert() {
         $nombre = $_POST["nombre"];
-        $valor = $_POST["valor"];
         $tipo = $_POST["tipo"];
         $this->load->model("Test_model", '', true);
-        $data = array("nombre" => $nombre, "valor" => $valor, "tipo" => $tipo, "fechacreacion" => date("Y/m/d H:i:s"), "fechaactualizacion" => date("Y/m/d H:i:s"), "usuario_id" => 1);
+        $data = array("nombre" => $nombre, "tipo" => $tipo, "fechacreacion" => date("Y/m/d H:i:s"), "fechaactualizacion" => date("Y/m/d H:i:s"), "usuario_id" => 1);
         $this->Test_model->create($data);
         redirect(site_url("test/index"));
     }

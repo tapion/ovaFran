@@ -17,15 +17,15 @@
         <div class="control-group">
             <label class="control-label" from="inptNombre">Nombre de Test</label>
             <div class="controls">
-                <input name="nombre" id="nombre" type="text" placeholder="Ingrese texto aqui..." value=""/> 
+                <input name="nombre" id="nombre" type="text" placeholder="Nombre del test" value=""/> 
             </div>
         </div>
-        <div class="control-group">
+<!--        <div class="control-group">
             <label class="control-label" from="valor">Valor de aprobación</label>
             <div class="controls">
                 <input name="valor" id="valor" type="text" placeholder="Ingrese texto aqui..." value=""/> 
             </div>
-        </div>
+        </div>-->
         <div>
             <div class="control-group">
                 <div class="controls">
