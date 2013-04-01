@@ -54,8 +54,8 @@ class Test_model extends CI_Model {
         return $this->db->affected_rows();
     }
     public function todosConTotal($where = "1 = 1"){
-        return $this->db->query("SELECT tes.id,tes.nombre,sum(pre.valor) as total,tes.valor,tes.fechacreacion,tes.tipo FROM test tes 
-                                inner join preguntas pre on pre.idtest = tes.id
+        return $this->db->query("SELECT tes.id,tes.nombre,coalesce(sum(pre.valor),0) as total,tes.valor,tes.fechacreacion,tes.tipo FROM test tes 
+                                left join preguntas pre on pre.idtest = tes.id
                                 where $where
                                 group by tes.id order by tes.nombre");
     }
