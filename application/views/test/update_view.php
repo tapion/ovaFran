@@ -10,6 +10,10 @@
         if(parseInt(document.getElementById("valor").value) < parseInt(cincuentaPor)){
             alert("El valor de aprobación no debe ser menor al 50% del total de las preguntas");
             return false;
+        }
+        if(parseInt(document.getElementById("valor").value) > parseInt(cincuentaPor)){
+            alert("El valor de aprobación no debe ser mayor al 100% del total de las preguntas");
+            return false;
         }else{
             return true;
         }
