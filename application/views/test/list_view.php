@@ -29,7 +29,7 @@
     <p>Genera un listado de los test existentes para visualizar de forma ordenada y precisa la información.</p>
     <table class="table table-condensed">
         <thead>
-            <tr><th>#</th> <th>Nombre Test</th><th>Preguntas</th><th>Actualizar</th><th>Eliminar</th><th>Total preguntas</th><th>Valor aprobación</th></tr>
+            <tr><th>#</th> <th>Nombre Test</th><th>Preguntas</th><th>Actualizar</th><th>Eliminar</th><th>Valor total test</th><th>Valor aprobación</th></tr>
         </thead>
         <tbody>
             <?php  

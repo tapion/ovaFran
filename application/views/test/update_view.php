@@ -8,7 +8,7 @@
     function valValorAprobacion(){
         var cincuentaPor = parseInt(GLOBAL.valtotalPreguntas) + 0.5;
         if(parseInt(document.getElementById("valor").value) < parseInt(cincuentaPor)){
-            alert("El valor de aprobación no debe ser menor al 50% del total de las preguntas");
+            alert("El valor de aprobación no debe ser menor al 50% del valor total de las preguntas");
             return false;
         }
         if(parseInt(document.getElementById("valor").value) > parseInt(cincuentaPor)){
@@ -49,7 +49,7 @@
         </div>
     </div>
     <div class="control-group">
-        <label class="control-label" from="valor">Total preguntas</label>
+        <label class="control-label" from="valor">Valor total test</label>
         <div class="controls">
             <div ><?php echo $totPreguntas; ?></div>
         </div>
