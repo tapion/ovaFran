@@ -5,7 +5,7 @@
     <form id="frmTest" action="<?php echo site_url("test/insert"); ?>" class="form-horizontal" method="POST">
         <legend>Agregar Nuevo Test</legend>
         <div class="control-group">
-            <label class="control-label" from="inptNombre">Nombre de Test</label>
+            <label class="control-label" from="inptNombre">Tipo sistema digestivo</label>
             <div class="controls">
                 <select id="tipo" name="tipo">
                     <option value="alto">Sistema Digestivo Alto</option>
