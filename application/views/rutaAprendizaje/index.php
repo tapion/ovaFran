@@ -172,9 +172,11 @@
     <legend>Categoria</legend>
     <select id="categoria">
         <option>Seleccione...</option>
-        <option value="alto">Sistema Digestivo Alto</option>
-        <option value="medio">Sistema Digestivo Medio</option>
-        <option value="bajo">Sistema Digestivo Bajo</option>
+        <?php if($sistemas->num_rows() > 0){
+            foreach($sistemas->result() as $sistema){
+                echo "<option value='{$sistema->codigo}'>{$sistema->nombre}</option>";
+            }
+        } ?>
     </select>
     <legend>Comics Correspondientes a la categoria seleccionada.</legend>
     <ul id="comic"></ul>
