@@ -22,5 +22,7 @@ ALTER TABLE `cuestionario`.`rutaaprendizaje`
   ON UPDATE CASCADE
 , ADD INDEX `sistemas_ruta` (`sistema_digestivo_id` ASC) ;
 DELETE FROM `cuestionario`.`rutaaprendizaje` WHERE `id`='24';
+ALTER TABLE `cuestionario`.`rutaaprendizaje` 
+ADD UNIQUE INDEX `ruta_unica` (`sistema_digestivo_id` ASC) ;
 
 
