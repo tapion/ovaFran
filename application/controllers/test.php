@@ -64,7 +64,7 @@ class Test extends CI_Controller {
 
     function getTest() {
         $this->load->model("Test_model", 'Test', true);
-        $testArray = $this->Test->selectAll();
+        $testArray = $this->Test->getTestForSistem($this->input->post("tipoSistemaDigestivo"));
         echo json_encode($testArray->result());
     }
 
@@ -129,3 +129,4 @@ class Test extends CI_Controller {
     }
 
 }
+

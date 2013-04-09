@@ -33,12 +33,13 @@
                     //$("#actividades").html(listadoDeArchivos);
                 },
                 error: function(error){
-                    alert(error);
+                    //alert(error);
                 }
             });
             $.ajax({
                 url: "<?php echo base_url("index.php/test/getTest"); ?>", 
                 type: "POST",
+                data: {"tipoSistemaDigestivo": $(this).val()},
                 success: function(arraytests){
                     arraytests = JSON.parse(arraytests);
                     var testhtml = "";

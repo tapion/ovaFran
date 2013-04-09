@@ -41,6 +41,10 @@ class Test_model extends CI_Model {
         $query = $this->db->get('test');
         return $query;
     }
+    function getTestForSistem($getTestForSistem) {
+        $query = $this->db->get_where('test',array("tipo"=>$getTestForSistem));
+        return $query;
+    }
 
     function selectOne($id) {
         $query = $this->db->get_where('test', array("id" => $id));
