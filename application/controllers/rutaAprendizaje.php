@@ -10,7 +10,7 @@ class rutaAprendizaje extends CI_Controller {
         $this->load->model("Sistemas_digestivos_model", 'sistemas_digestivos', true);
         $sistemas = $this->sistemas_digestivos->selectAll();
         $parametersView = array(
-            array("view" => 'rutaAprendizaje/index', "parameters" => array("sistemas"=>$sistemas))
+            array("view" => 'rutaAprendizaje/index', "parameters" => array("sistemas" => $sistemas))
         );
         site::loadView($parametersView);
     }
@@ -30,7 +30,7 @@ class rutaAprendizaje extends CI_Controller {
     function readFiles() {
         $tipoSistemaDigestivo = $_POST["tipoSistemaDigestivo"];
         $tipoArchivo = $_POST["tipoArchivo"];
-        $directorioRuta = $_SERVER["DOCUMENT_ROOT"] . "ovasdh/multimedia/";
+        $directorioRuta = $_SERVER["DOCUMENT_ROOT"] . "/" . PROJECT_NAME . "/multimedia/";
         $arrayFilesToReturn = array();
         switch ($tipoSistemaDigestivo) {
             case "bajo":
@@ -40,20 +40,32 @@ class rutaAprendizaje extends CI_Controller {
             case "alto":
                 break;
         }
-        $directorioObject = opendir($directorioRuta . "Videos");
         $arrayVideos = array();
-        while (false !== ($file = readdir($directorioObject))) {
-            array_push($arrayVideos, $file);
-        }
-        $directorioObject = opendir($directorioRuta . "Comic");
         $arrayComic = array();
-        while (false !== ($file = readdir($directorioObject))) {
-            array_push($arrayComic, $file);
-        }
-        $directorioObject = opendir($directorioRuta . "Actividades");
         $arrayActividades = array();
-        while (false !== ($file = readdir($directorioObject))) {
-            array_push($arrayActividades, $file);
+        if (is_dir($directorioRuta . "Videos")) {
+            $directorioObject = opendir($directorioRuta . "Videos");
+            if ($directorioObject) {
+                while (false !== ($file = readdir($directorioObject))) {
+                    array_push($arrayVideos, $file);
+                }
+            }
+        }
+        if (is_dir($directorioRuta . "Comic")) {
+            $directorioObject = opendir($directorioRuta . "Comic");
+            if ($directorioObject) {
+                while (false !== ($file = readdir($directorioObject))) {
+                    array_push($arrayComic, $file);
+                }
+            }
+        }
+        if (is_dir($directorioRuta . "Actividades")) {
+            $directorioObject = opendir($directorioRuta . "Actividades");
+            if ($directorioObject) {
+                while (false !== ($file = readdir($directorioObject))) {
+                    array_push($arrayActividades, $file);
+                }
+            }
         }
         $arrayFilesToReturn = array("videos" => $arrayVideos, "comic" => $arrayComic, "actividades" => $arrayActividades);
         echo json_encode($arrayFilesToReturn);
