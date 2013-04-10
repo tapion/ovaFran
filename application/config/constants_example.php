@@ -21,6 +21,7 @@ define('NOMBRE_BD_MOODLE', "moodle_tesis");
 define('ID_DOCENTE_MOODLE', 3);
 define('ID_ESTUDIANTE_MOODLE', 5);
 define('STRING_SEMILLA', '7BYc7B(svn2v`8{zOfH]Ji!h&');   
+define('PROJECT_NAME', 'ovaFran');   
 
 /*
 |--------------------------------------------------------------------------
