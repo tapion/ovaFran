@@ -20,10 +20,35 @@ class rutaAprendizaje extends CI_Controller {
             $arrayFlujoRutaAprendizaje = $_POST["data"];
             $this->load->model("RutaAprendizaje_model", "rutaAprendizaje", true);
             $data = array("nombre" => $_POST["nombre"], "data" => implode(',', $arrayFlujoRutaAprendizaje), "fecha_creacion" => "NOW()", "usuario_id" => 1);
-            $this->rutaAprendizaje->create($data);
+            if ($this->input->post("id") > 0) {
+                $this->rutaAprendizaje->edita($data, $this->input->post("id"));
+            } else {
+                $this->rutaAprendizaje->create($data);
+            }
             echo "La ruta de aprendizaje se almacenó correctamente.";
         } catch (Exception $e) {
             echo error;
+        }
+    }
+
+    public function validaExistenciaRuta() {
+        $respuesta = array();
+        $respuesta["ok"] = true;
+        try {
+            $this->load->model("RutaAprendizaje_model", "rutaAprendizaje", true);
+            $rutas = $this->rutaAprendizaje->existeRutaAprendizaje($this->input->post("sistema"));
+            if ($rutas->num_rows() > 0) {
+                $rutas = $rutas->result();
+                $respuesta["estado"] = 1;
+                $respuesta["id"] = $rutas[0]->id;
+                $respuesta["mensaje"] = "Esta editando la ruta de aprendizaje";
+            } else {
+                $respuesta["estado"] = 2;
+                $respuesta["mensaje"] = "Esta creando una ruta de aprendizaje";
+            }
+            echo json_encode($respuesta);
+        } catch (Exception $e) {
+            $respuesta["ok"] = false;
         }
     }
 

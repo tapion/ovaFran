@@ -22,15 +22,9 @@
                         listadoDeArchivos += "<li><input type='radio' name='videos' value='" + archivos.videos[i] + "'>" + archivos.videos[i] + "</li>";
                     }
                     listadoDeArchivos = "";
-                    for(i=2; i < archivos.comic.length; i++){
-                        //listadoDeArchivos += "<li><input type='radio' name='comic' value='" + archivos.comic[i] + "'>" + archivos.comic[i] + "</li>";
-                    }
-                    //$("#comic").html(listadoDeArchivos);
-                    listadoDeArchivos = "";
                     for(i=2; i < archivos.actividades.length; i++){
                         listadoDeArchivos += "<li><input type='radio' name='actividades' value='" + archivos.actividades[i] + "'>" + archivos.actividades[i] + "</li>";
                     }
-                    //$("#actividades").html(listadoDeArchivos);
                 },
                 error: function(error){
                     //alert(error);
@@ -95,7 +89,7 @@
         $.ajax({
             url: "<?php echo base_url("index.php/rutaAprendizaje/insert"); ?>", 
             type: "POST",
-            data: {"nombre": $("#nombre").val(), "data": dataRutaAprendizaje},
+            data: {"nombre": $("#nombre").val(), "data": dataRutaAprendizaje,"id":document.getElementById("idRutaAprendizaje").value},
             success: function(guardo){alert(guardo);},
             error: function(error){alert(error);}
         });
@@ -164,19 +158,54 @@
             validaOrden(document.getElementById(GLOBAL.combos[c]));
         }
     }
+    function cambiaSistema(sistema){
+        $.ajax({
+            url: "<?php echo base_url("index.php/rutaAprendizaje/validaExistenciaRuta"); ?>", 
+            type: "POST",
+            data: {"sistema": sistema.value},
+            dataType: "JSON",
+            success: function(existe){
+                if(existe.ok){
+                    document.getElementById("divAlertaBien").style.display = "none";
+                    document.getElementById("divAlerta").style.display = "none";
+                    document.getElementById("idRutaAprendizaje").value = 0;
+                    switch(existe.estado){
+                        case 1:
+                            document.getElementById("spAlerta").innerHTML = existe.mensaje;
+                            document.getElementById("divAlerta").style.display = "block";
+                            document.getElementById("idRutaAprendizaje").value = existe.id;
+                            break;
+                        case 2: 
+                            document.getElementById("spAlertaBien").innerHTML = existe.mensaje;
+                            document.getElementById("divAlertaBien").style.display = "block";                    
+                            break;
+                        default: console.log("Error programa"); break;
+                    }
+                }else{
+                    //se presento un error
+                }
+                if(existe != ""){
+                }else{
+                }
+            },
+            error: function(error){}
+        });  
+    }
 </script>
 <div class="content">
     <h1>Creacion de rutas de aprendizaje</h1>
     <legend>Nombre de ruta de aprendizaje</legend>
     <div style="clear: both;">* Nombre: <input id="nombre" type="text" value=""/></div>
     <legend>Categoria</legend>
-    <select id="categoria">
+    <select id="categoria" onchange="cambiaSistema(this);">
         <option>Seleccione...</option>
-        <?php if($sistemas->num_rows() > 0){
-            foreach($sistemas->result() as $sistema){
+        <?php
+        if ($sistemas->num_rows() > 0) {
+            foreach ($sistemas->result() as $sistema) {
                 echo "<option value='{$sistema->codigo}'>{$sistema->nombre}</option>";
             }
-        } ?>
+        }
+        ?>
     </select>
     <legend>Comics Correspondientes a la categoria seleccionada.</legend>
     <ul id="comic"></ul>
@@ -190,6 +219,8 @@
     <legend>Tests Correspondientes a la categoria seleccionada.</legend>
     <ul id="test"></ul>
     <div style="clear: both;">* Orden: <select id="ordentest" ><option value="4">4</option></select></div>
+    <input type="hidden" id="idRutaAprendizaje" name="idRutaAprendizaje" />
     <input type="button" class="btn btn-large btn-inverse btnMe" onclick="insertRutaAprendizaje();" value="Crear Ruta de Aprendizaje"/>
+
 </div>
 
