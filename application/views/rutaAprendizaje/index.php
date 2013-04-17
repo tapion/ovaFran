@@ -11,6 +11,7 @@
     $(document).ready(function(){
         disparaCombos();
         $("#categoria").change(function(){
+            var sistemaValor = $(this).val();
             $.ajax({
                 url: "<?php echo base_url("index.php/rutaAprendizaje/readFiles"); ?>", 
                 type: "POST",
@@ -41,6 +42,7 @@
                         testhtml += "<li><input type='radio' id=" + arraytests[testItem].id + " name='test' value='" + arraytests[testItem].id + "'>" + arraytests[testItem].nombre + "</li>";
                     }
                     $("#test").html(testhtml);
+                    cambiaSistema(sistemaValor);
                 },
                 error: function(error){
                     alert(error);
@@ -77,7 +79,8 @@
             dataRutaAprendizaje.videos = "bajo.flv";
             dataRutaAprendizaje.comic = "comic_bajo.swf";
             dataRutaAprendizaje.actividades = "act_bajo.jclic.zip";
-            dataRutaAprendizaje.presentacion = "presbajo.swf";
+            dataRutaAprendizaje.prese
+                = "presbajo.swf";
             $("input[type=radio], [name=test]").each(function(){
                 if($(this).is(":checked"))
                 {
@@ -162,7 +165,7 @@
         $.ajax({
             url: "<?php echo base_url("index.php/rutaAprendizaje/validaExistenciaRuta"); ?>", 
             type: "POST",
-            data: {"sistema": sistema.value},
+            data: {"sistema": sistema},
             dataType: "JSON",
             success: function(existe){
                 if(existe.ok){
@@ -174,6 +177,13 @@
                             document.getElementById("spAlerta").innerHTML = existe.mensaje;
                             document.getElementById("divAlerta").style.display = "block";
                             document.getElementById("idRutaAprendizaje").value = existe.id;
+                            var array = existe.orden.split(",");
+                            document.getElementById("ordencomic").value = array[2];
+                            document.getElementById("ordenvideos").value = array[1];
+                            document.getElementById("ordenactividades").value = array[4];
+                            if(document.getElementById(array[0]) != undefined){
+                                document.getElementById(array[0]).checked = true;
+                            }
                             break;
                         case 2: 
                             document.getElementById("spAlertaBien").innerHTML = existe.mensaje;
@@ -182,7 +192,7 @@
                         default: console.log("Error programa"); break;
                     }
                 }else{
-                    //se presento un error
+                    alert(existe.mensaje);
                 }
                 if(existe != ""){
                 }else{
@@ -197,7 +207,7 @@
     <legend>Nombre de ruta de aprendizaje</legend>
     <div style="clear: both;">* Nombre: <input id="nombre" type="text" value=""/></div>
     <legend>Categoria</legend>
-    <select id="categoria" onchange="cambiaSistema(this);">
+    <select id="categoria" >
         <option>Seleccione...</option>
         <?php
         if ($sistemas->num_rows() > 0) {

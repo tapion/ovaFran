@@ -42,6 +42,15 @@ class rutaAprendizaje extends CI_Controller {
                 $respuesta["estado"] = 1;
                 $respuesta["id"] = $rutas[0]->id;
                 $respuesta["mensaje"] = "Esta editando la ruta de aprendizaje";
+                $orden = explode(",",$rutas[0]->data);
+                if(count($orden) < 10){
+                    throw new Exception("Error en la longitud de los datos");
+                }
+                $ordenLista = "";
+                for($c = count($orden) - 6;$c < count($orden); $c++){
+                    $ordenLista .= $orden[$c].",";
+                }
+                $respuesta["orden"] =  trim($ordenLista,",");
             } else {
                 $respuesta["estado"] = 2;
                 $respuesta["mensaje"] = "Esta creando una ruta de aprendizaje";
@@ -49,6 +58,7 @@ class rutaAprendizaje extends CI_Controller {
             echo json_encode($respuesta);
         } catch (Exception $e) {
             $respuesta["ok"] = false;
+            $respuesta["mensaje"] = $e->getMessage();
         }
     }
 
@@ -106,7 +116,6 @@ class rutaAprendizaje extends CI_Controller {
         }else
             echo false;
     }
-
 }
 
 ?>

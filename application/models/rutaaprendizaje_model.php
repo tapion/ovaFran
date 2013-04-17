@@ -51,7 +51,6 @@ class RutaAprendizaje_model extends CI_Model {
         $this->db->fecha_creacion = $data['nombre'];
         $this->db->usuario_id = $data['usuario_id'];
         $this->db->update('rutaaprendizaje', $data, array("id" => (int) $id));
-
         return $this->db->affected_rows();
     }
 
