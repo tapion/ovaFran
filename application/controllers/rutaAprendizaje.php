@@ -19,7 +19,7 @@ class rutaAprendizaje extends CI_Controller {
         try {
             $arrayFlujoRutaAprendizaje = $_POST["data"];
             $this->load->model("RutaAprendizaje_model", "rutaAprendizaje", true);
-            $data = array("nombre" => $_POST["nombre"], "data" => implode(',', $arrayFlujoRutaAprendizaje), "fecha_creacion" => "NOW()", "usuario_id" => 1);
+            $data = array("nombre" => $_POST["nombre"], "data" => implode(',', $arrayFlujoRutaAprendizaje), "fecha_creacion" => "NOW()", "usuario_id" => 1,"sistema_digestivo_codigo"=>$_POST["sistema"]);
             if ($this->input->post("id") > 0) {
                 $this->rutaAprendizaje->edita($data, $this->input->post("id"));
             } else {

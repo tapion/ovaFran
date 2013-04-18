@@ -92,7 +92,7 @@
         $.ajax({
             url: "<?php echo base_url("index.php/rutaAprendizaje/insert"); ?>", 
             type: "POST",
-            data: {"nombre": $("#nombre").val(), "data": dataRutaAprendizaje,"id":document.getElementById("idRutaAprendizaje").value},
+            data: {"nombre": $("#nombre").val(), "data": dataRutaAprendizaje,"id":document.getElementById("idRutaAprendizaje").value,"sistema":document.getElementById("categoria").value},
             success: function(guardo){alert(guardo);},
             error: function(error){alert(error);}
         });
