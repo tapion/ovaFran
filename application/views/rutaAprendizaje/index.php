@@ -191,11 +191,9 @@
                             break;
                         default: console.log("Error programa"); break;
                     }
+                    disparaCombos();
                 }else{
                     alert(existe.mensaje);
-                }
-                if(existe != ""){
-                }else{
                 }
             },
             error: function(error){}
