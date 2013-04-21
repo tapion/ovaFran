@@ -86,6 +86,13 @@
             error: function(error){aler(error);}
         });
     }
+    function existeImagen(){
+        if(document.getElementById("imagenLoad").value ==""){
+            alert("Debe elegir primero la imagen a cargar");
+            return false;
+        }
+        
+    }
 </script>
 <style>
     input[type='text'], input[type='submit'], input[type='button']{display: block;}
@@ -105,9 +112,9 @@
 </div>
 <div>
     <legend>Carga de Imagenes</legend>
-    <form action="<?php echo site_url("imagen/cargarImagen/$id/$test_id"); ?>" method="POST" enctype="multipart/form-data">
+    <form action="<?php echo site_url("imagen/cargarImagen/$id/$test_id"); ?>" onsubmit="return existeImagen();" method="POST" enctype="multipart/form-data">
         <label for="file">Seleccione la imagen a cargar:</label>
-        <input name="file" type="file" />
+        <input name="file" type="file" id="imagenLoad" />
         <input name="nombre" type="text" placeholder="Nombre de Imagen" value="" />
         <input type="submit" value="Agregar Imagen" class="btn  btn-primary" />
     </form>

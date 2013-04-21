@@ -51,6 +51,7 @@ class rutaAprendizaje extends CI_Controller {
                     $ordenLista .= $orden[$c].",";
                 }
                 $respuesta["orden"] =  trim($ordenLista,",");
+                $respuesta["nombre"] =  $rutas[0]->nombre;
             } else {
                 $respuesta["estado"] = 2;
                 $respuesta["mensaje"] = "Esta creando una ruta de aprendizaje";
@@ -107,7 +108,6 @@ class rutaAprendizaje extends CI_Controller {
     }
 
     function eliminar() {
-        $this->load->library('session');
         if ($this->session->userdata("role_id") == 3) {
             $id_ruta = $_POST["idruta"];
             $this->load->model("rutaaprendizaje_model", "ruta", True);

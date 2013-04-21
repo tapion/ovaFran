@@ -17,7 +17,7 @@
     
     <img src="<?php echo base_url()."img/preguntas.png"; ?>" alt="preguntas" /><h1 style="display: inline;">Administracion de Preguntas</h1>
     <legend>Agregar Nueva Pregunta</legend>
-    <p>Selecciona la siguiente opción para crear una nueva pregunta.</p>
+    <p>Selecciona la siguiente opción para crear una nueva pregunta. Correspondiente al test <strong><?php echo $nombreTest ?></strong></p>
     <a href="<?php echo site_url("pregunta/form_new/$id"); ?>" class='btn btn-info'><i class='icon-plus'></i> Agregar</a>
     
     <legend>Listado de Preguntas Existentes</legend>

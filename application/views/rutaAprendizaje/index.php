@@ -12,6 +12,9 @@
         disparaCombos();
         $("#categoria").change(function(){
             var sistemaValor = $(this).val();
+            if(sistemaValor == ""){
+                return true;
+            }
             $.ajax({
                 url: "<?php echo base_url("index.php/rutaAprendizaje/readFiles"); ?>", 
                 type: "POST",
@@ -38,11 +41,17 @@
                 success: function(arraytests){
                     arraytests = JSON.parse(arraytests);
                     var testhtml = "";
-                    for(var testItem in arraytests){
-                        testhtml += "<li><input type='radio' id=" + arraytests[testItem].id + " name='test' value='" + arraytests[testItem].id + "'>" + arraytests[testItem].nombre + "</li>";
+                    if(arraytests.length > 0){
+                        for(var testItem in arraytests){
+                            testhtml += "<li><input type='radio' id=" + arraytests[testItem].id + " name='test' value='" + arraytests[testItem].id + "'>" + arraytests[testItem].nombre + "</li>";
+                        }
+                        $("#test").html(testhtml);
+                        cambiaSistema(sistemaValor);
+                    }else{
+                        alert("Debe primero crear un test, antes de crear/editar una ruta de aprendizaje");
+                        document.getElementById("categoria").value = "";
+                        return false;
                     }
-                    $("#test").html(testhtml);
-                    cambiaSistema(sistemaValor);
                 },
                 error: function(error){
                     alert(error);
@@ -184,6 +193,7 @@
                             if(document.getElementById(array[0]) != undefined){
                                 document.getElementById(array[0]).checked = true;
                             }
+                            document.getElementById("nombre").value = existe.nombre;
                             break;
                         case 2: 
                             document.getElementById("spAlertaBien").innerHTML = existe.mensaje;
@@ -206,7 +216,7 @@
     <div style="clear: both;">* Nombre: <input id="nombre" type="text" value=""/></div>
     <legend>Categoria</legend>
     <select id="categoria" >
-        <option>Seleccione...</option>
+        <option value="">Seleccione...</option>
         <?php
         if ($sistemas->num_rows() > 0) {
             foreach ($sistemas->result() as $sistema) {

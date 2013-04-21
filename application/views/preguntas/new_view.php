@@ -9,7 +9,7 @@
     });
 </script>
 <div id="contentTest">
-    <h1>Administracion de Test</h1>
+    <h1>Administracion del test: (<?php echo $nombreTest; ?>)</h1>
     <p class="lead">Ingresa la información requerida para los campos disponibles, y genera una pregunta completa luego de terminar el proceso.</p>
     <br/>
     <form id="frmTest" action="<?php echo site_url("pregunta/insert/$id"); ?>" class="form-horizontal" method="POST">
@@ -29,19 +29,7 @@
         <div class="control-group">
             <label class="control-label" from="pregunta">Pregunta</label>
             <div class="controls">
-                <input name="pregunta" id="pregunta" type="text" placeholder="Ingrese texto aqui..." value=""/> 
-            </div>
-        </div>
-        <div id="valorcontrol" class="control-group">
-            <label class="control-label" from="valor">Valor</label>
-            <div class="controls">
-                <input name="valor" id="valor" type="text" placeholder="Ingrese texto aqui..." value=""/> 
-            </div>
-        </div>
-        <div class="control-group">
-            <label class="control-label" from="respuestacorrecta">Respuesta Correcta</label>
-            <div class="controls">
-                <select name="respuestacorrecta" id="respuestacorrecta" ><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> 
+                <textarea name="pregunta" id="pregunta" placeholder="Ingrese texto aqui..." value="" ></textarea>
             </div>
         </div>
         <div>

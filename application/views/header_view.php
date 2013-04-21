@@ -63,7 +63,6 @@
                 </ul>
             </div>
         </div>
-        <br/>
         <div id="content">
             <div class="site-index">
                 <h1>Objeto virtual de aprendizaje del sistema digestivo humano.</h1>
@@ -71,10 +70,9 @@
                 <p>El objetivo de este objeto virtual de aprendizaje es aprender la importancia del sistema digestivo humano, el funcionamiento de cada órgano y los cuidados que debemos tener para el buen funcionamiento de este.</p>
             </div>
             <div class="alert fade in" id="divAlerta" style="display: none;">
-<!--                <button type="button" class="close" data-dismiss="alert">&times;</button>-->
-                <strong>¡Atención!</strong> <span id="spAlerta">Best check yo self, you're not looking too good.</span>
+                <strong>¡Atención!</strong> <span id="spAlerta"></span>
             </div>
             <div class="alert alert-success fade in" id="divAlertaBien" style="display: none;">
 <!--                <button type="button" class="close" data-dismiss="alert">&times;</button>-->
-                <strong>Ok</strong> <span id="spAlertaBien">Best check yo self, you're not looking too good.</span>
+                <strong>Ok</strong> <span id="spAlertaBien"></span>
             </div>

@@ -34,27 +34,28 @@
     <div id="doc" style="display: none;">
         <legend><img src="<?php echo base_url("img/doce.png"); ?>" style="width:128px; height: 128px;" alt="Estudiantes">DOCENTES</legend>
         <div class="control">
-            <ol>
-                <li>Ejecuta el proceso de creacion para las rutas de aprendizaje que los estudiantes desarrollaran por medio de la aplicacion.</li>
-            </ol>
-            <button style="width: 300px; margin-left: 25px;"  class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/rutaAprendizaje/index"); ?>';">Crear Ruta de Aprendizaje</button>
-        </div>
-        <br/>
-        <div class="control">
-            <ol start='2'>
+            <ol >
                 <li>Ejecute el proceso de creación de test.</li>
             </ol>
             <button style="width: 300px; margin-left: 25px;"  class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/test/"); ?>';">Crear Test</button>
         </div>
         <br/>
         <div class="control">
-            <ol start='3'>
+            <ol start='2'>
                 <li>Preguntas para examen final.</li>
             </ol>
             <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/pregunta/index/-1"); ?>';">Crear Preguntas para Examen Final</button>
         </div>
+        <br/>
         <div class="control">
             <ol start='3'>
+                <li>Ejecuta el proceso de creacion para las rutas de aprendizaje que los estudiantes desarrollaran por medio de la aplicacion.</li>
+            </ol>
+            <button style="width: 300px; margin-left: 25px;"  class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/rutaAprendizaje/index"); ?>';">Crear Ruta de Aprendizaje</button>
+        </div>
+        <br/>
+        <div class="control">
+            <ol start='4'>
                 <li>Resultados Examen Final.</li>
             </ol>
             <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo site_url("examenfinal/verResultadosFinalesView"); ?>';">Ver Resultados</button>
