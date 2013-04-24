@@ -2,6 +2,11 @@
     #evaluacion{ width: 100%; text-align: center;}
 </style>
 <script type="text/javascript">
+    var GLOBAL = {
+        elementosEnOrden:[],
+        rutaAprendizajeView:'',
+        rutaAprendizajeId: 0
+    }
     $(document).ready(function(){
         $(".deleteruta").click(function(){
             $.ajax({
@@ -35,9 +40,8 @@
             $.ajax({
                 url: "<?php echo site_url("test/saveResultTest"); ?>",
                 type: "POST",
-                data: {"testid": arrayEvaluacion[4][0][0].toString() , "intentos": intentosFallidos },
+                data: {"testid": arrayEvaluacion[4][0][0].toString() , "intentos": intentosFallidos,'ultimoOrden': GLOBAL.rutaAprendizajeView,'rutaId':GLOBAL.rutaAprendizajeId },
                 success: function(){
-                    //alert("Los resultados se almacenaron correctamente.");
                     intentosFallidos = 0;
                     window.location = '<?php echo base_url("index.php/responderRuta"); ?>';
                 }
@@ -109,6 +113,7 @@
                 }
             }
             if(arrayEvaluacion[i][0][2] == "presentacion" && arrayEvaluacion[i][0][1] == siguienteInstrumento){
+                GLOBAL.rutaAprendizajeView = 'presentacion';
                 var rutaPresentacion = "<?php echo base_url("multimedia/Presentaciones/"); ?>/" + arrayEvaluacion[i][0][0];
                 htmlPresentacion = '<legend>Presentación</legend><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="600" height="400">';
                 htmlPresentacion += '<param name="movie" value="'+rutaPresentacion+'" />';
@@ -117,6 +122,7 @@
                 htmlPresentacion += '</object>';
             }
             else if(arrayEvaluacion[i][0][2] == "video" && arrayEvaluacion[i][0][1] == siguienteInstrumento){
+                GLOBAL.rutaAprendizajeView = 'video';
                 var nombreVideo = arrayEvaluacion[i][0][0];                
                 if(nombreVideo == "alto.flv")
                     htmlVideo = '<iframe width="420" height="315" src="http://www.youtube.com/embed/nz2Xx5jtXRQ" frameborder="0" allowfullscreen></iframe>';
@@ -126,6 +132,7 @@
                     htmlVideo = '<iframe width="420" height="315" src="http://www.youtube.com/embed/R76OAk0FM5Q" frameborder="0" allowfullscreen></iframe>';
             }
             else if(arrayEvaluacion[i][0][2] == "comic" && arrayEvaluacion[i][0][1] == siguienteInstrumento){
+                GLOBAL.rutaAprendizajeView = 'comic';
                 var rutaComic = '<?php echo base_url("multimedia/Comic/"); ?>/' + arrayEvaluacion[i][0][0];
                 htmlcomic = '<legend>Comic</legend><object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="600" height="400">';
                 htmlcomic += '<param name="movie" value="'+ rutaComic +'" />';
@@ -142,6 +149,14 @@
         $("#evaluacion").append(htmlcomic);
         $("#evaluacion").append(htmlActividad);
     }
+    function cargaDatosIniciales(data,rutaId){
+        var arreglo = data.split(',');
+        GLOBAL.elementosEnOrden[arreglo[5]] = {pos:0,valor:arreglo[0]};
+        GLOBAL.elementosEnOrden[arreglo[6]] = {pos:0,valor:arreglo[1]};
+        GLOBAL.elementosEnOrden[arreglo[8]] = arreglo[3];
+        GLOBAL.rutaAprendizajeId = rutaId;
+        ocultarRutasAprendizaje(data);
+    }
 </script>
 <h1>Listado de Rutas de aprendizaje a responder</h1>
 <table id="rutasAprendizaje" class="table table-bordered table-hover">
@@ -153,12 +168,20 @@
     <tbody>
         <?php
         foreach ($arrauRutasAprendizaje as $arrayItem) {
-            $registroRutaAprendizaje = "<tr><td>%s</td><td><input type='button' class='btn btn-large btn-inverse' onclick='ocultarRutasAprendizaje(\"%s\");' value='Realizar Evaluación'/></td>";
+            $classBtn = '';
+            $classTr = '';
+            $onclick = 'onclick=\'cargaDatosIniciales("'.$arrayItem->data.'",'.$arrayItem->id.');\'';
+            $registroRutaAprendizaje = "<tr class='%s'><td>%s</td><td><input type='button' class='btn btn-large btn-inverse %s' %s value='Realizar Evaluación'/></td>";
             if ($this->session->userdata("role_id") == 3) {
                 $registroRutaAprendizaje .= "<td><button id='del$arrayItem->id' class='btn btn-danger deleteruta' ruta='$arrayItem->id'>Eliminar Ruta de Aprendizaje</button></td>";
             }
             $registroRutaAprendizaje .= "</tr>";
-            echo sprintf($registroRutaAprendizaje, strtoupper($arrayItem->nombre), $arrayItem->data);
+            if(!$arrayItem->username){
+                $classTr = 'success';
+                $classBtn = 'disabled';
+                $onclick  = '';
+            }
+            echo sprintf($registroRutaAprendizaje,$classTr, strtoupper($arrayItem->nombre),$classBtn,$onclick );
         }
         ?>
     </tbody>

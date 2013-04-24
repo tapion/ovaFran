@@ -115,9 +115,10 @@ class Test extends CI_Controller {
     function saveResultTest() {
         $testid = $_POST["testid"];
         $intentos = $_POST["intentos"];
-        $this->load->library('session');
+        $rutaaprendizajeId = $this->input->post("rutaId");
+        $ultimoOrden = $this->input->post("ultimoOrden");
         $this->load->model("Respuestas_model", "respuestas", True);
-        $this->respuestas->insertResultadosTest($this->session->userdata("username"), $testid, $intentos);
+        $this->respuestas->insertResultadosTest($this->session->userdata("username"), $testid, $intentos,$rutaaprendizajeId,$ultimoOrden);
         return true;
     }
 

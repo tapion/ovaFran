@@ -45,9 +45,8 @@ class Respuestas_model extends CI_Model {
         return true;
     }
     
-    function insertResultadosTest($username, $idtest, $intentosfallidos)
-    {
-        $this->db->query("INSERT INTO resultados_test (username, idtest, intentosfallidos) VALUES ('$username', '$idtest', '$intentosfallidos')");
+    function insertResultadosTest($username, $idtest, $intentosfallidos,$rutaId,$ultimoOrden){
+        $this->db->query("INSERT INTO resultados_test (username, idtest, intentosfallidos,ultimo_orden_valido,rutaaprendizaje_id) VALUES ('$username', '$idtest', '$intentosfallidos','$ultimoOrden',$rutaId)");
         return true;
     }
     

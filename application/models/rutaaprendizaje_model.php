@@ -27,6 +27,11 @@ class RutaAprendizaje_model extends CI_Model {
         $query = $this->db->get('rutaaprendizaje');
         return $query;
     }
+    public function rutasConRespuestas($username){
+        return $this->db->query('select res.username,rut.* from rutaaprendizaje rut
+            left join resultados_test res on res.rutaaprendizaje_id = rut.id and res.username = \''.$username.'\'
+            order by rut.nombre');
+    }
 
     function selectOne($id) {
         $query = $this->db->get_where('rutaaprendizaje', array("id" => $id));

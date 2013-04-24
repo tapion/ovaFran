@@ -7,7 +7,7 @@ require_once("site.php");
 class responderRuta extends CI_Controller {
     function index(){
         $this->load->model("RutaAprendizaje_model", "RutaAprendizaje", true);
-        $arrauRutasAprendizaje = $this->RutaAprendizaje->selectAll();
+        $arrauRutasAprendizaje = $this->RutaAprendizaje->rutasConRespuestas($this->session->userdata("username"));
         $parametersView = array(
             array("view" => 'responderRuta/estudiantes', "parameters" => array("arrauRutasAprendizaje" => $arrauRutasAprendizaje->result()))
         );
