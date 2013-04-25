@@ -28,7 +28,7 @@ class RutaAprendizaje_model extends CI_Model {
         return $query;
     }
     public function rutasConRespuestas($username){
-        return $this->db->query('select res.username,rut.* from rutaaprendizaje rut
+        return $this->db->query('select (SELECT ultimo_orden_valido FROM resultados_test res1 where res1.username = \''.$username.'\' order by id desc limit 1) as ult_orden,res.username,rut.* from rutaaprendizaje rut
             left join resultados_test res on res.rutaaprendizaje_id = rut.id and res.username = \''.$username.'\'
             order by rut.nombre');
     }

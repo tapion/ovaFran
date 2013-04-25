@@ -9,7 +9,7 @@ class responderRuta extends CI_Controller {
         $this->load->model("RutaAprendizaje_model", "RutaAprendizaje", true);
         $arrauRutasAprendizaje = $this->RutaAprendizaje->rutasConRespuestas($this->session->userdata("username"));
         $parametersView = array(
-            array("view" => 'responderRuta/estudiantes', "parameters" => array("arrauRutasAprendizaje" => $arrauRutasAprendizaje->result()))
+            array("view" => 'responderRuta/estudiantes', "parameters" => array("arrauRutasAprendizaje" => $arrauRutasAprendizaje))
         );
         site::loadView($parametersView);
     }
