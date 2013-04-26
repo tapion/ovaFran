@@ -50,16 +50,45 @@
             }
         });
         $("#saveRespuestas").click(function(){
-            $.ajax({
-                url: "<?php echo site_url("respuesta/agregar/"); ?>",
-                type: "POST",
-                data: {"pregunta_id": "<?php echo $id; ?>", "respuesta1" : $("#respuestaOne").val(), "respuesta2" : $("#respuestaTwo").val(), "respuesta3" : $("#respuestaThree").val(),"respuesta4" : $("#respuestaFour").val(), "action" : $("#action").val()},
-                success: function(result){
-                    alert(result);
-                },
-                error: function(error){aler(error);}
-            });
+            if(datosPreguntaCompletos()){
+                if(respuestasIngresadas()){
+                    $.ajax({
+                        url: "<?php echo site_url("respuesta/agregar/"); ?>",
+                        type: "POST",
+                        data: {"pregunta_id": "<?php echo $id; ?>", "respuesta1" : $("#respuestaOne").val(), "respuesta2" : $("#respuestaTwo").val(), "respuesta3" : $("#respuestaThree").val(),"respuesta4" : $("#respuestaFour").val(), "action" : $("#action").val()},
+                        success: function(result){
+                            alert(result);
+                            document.getElementById("frmTest").submit();
+                        },
+                        error: function(error){aler(error);}
+                    });
+                }else{
+                    alert("Debe ingresar las cuatro respuestas a la pregunta");
+                    return false;
+                }
+            }else{
+                return false;
+            }
         });
+        function respuestasIngresadas(){
+            if(document.getElementById("respuestaOne").value == ""){
+                alert("Debe ingresar un valor en la respuesta uno");
+                return false;
+            }
+            if(document.getElementById("respuestaTwo").value == ""){
+                alert("Debe ingresar un valor en la respuesta dos");
+                return false;
+            }
+            if(document.getElementById("respuestaThree").value == ""){
+                alert("Debe ingresar un valor en la respuesta tres");
+                return false;
+            }
+            if(document.getElementById("respuestaFour").value == ""){
+                alert("Debe ingresar un valor en la respuesta cuatro");
+                return false;
+            }
+            return true;
+        }
         $("#updateRespuestas").click(function(){
             $.ajax({
                 url: "<?php echo site_url("respuesta/update/"); ?>",
@@ -108,7 +137,7 @@
     <legend>Respuesta No. 4</legend>
     <input id="respuestaFour" name="respuestaFour" type="text" placeholder="Ingrese texto..." value=""/>
     <input type="hidden" id="action" value="add" />
-    <input name="saveRespuestas" id="saveRespuestas" type="submit" value="Guardar Respuestas" class="btn  btn-primary" />
+    <input name="saveRespuestas" id="saveRespuestas" type="submit" value="Guardar preguntas y respuestas" class="btn  btn-primary" />
 </div>
 <div>
     <legend>Carga de Imagenes</legend>

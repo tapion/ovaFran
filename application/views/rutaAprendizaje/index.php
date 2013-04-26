@@ -58,6 +58,10 @@
                 }
             });
         });
+        <?php if(!empty($codigoSistema)){ ?>
+            document.getElementById("categoria").value = '<?php echo $codigoSistema ?>';
+            $("#categoria").trigger('change');
+        <?php } ?>
     });
     function insertRutaAprendizaje(){
         var dataRutaAprendizaje = {"videos":"", "comic": "", "actividades": "", "presentacion": "","test":"", "orden":""};
@@ -102,7 +106,10 @@
             url: "<?php echo base_url("index.php/rutaAprendizaje/insert"); ?>", 
             type: "POST",
             data: {"nombre": $("#nombre").val(), "data": dataRutaAprendizaje,"id":document.getElementById("idRutaAprendizaje").value,"sistema":document.getElementById("categoria").value},
-            success: function(guardo){alert(guardo);},
+            success: function(guardo){
+                alert(guardo);
+                window.location = "<?php echo site_url("responderRuta") ?>";
+            },
             error: function(error){alert(error);}
         });
         

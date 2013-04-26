@@ -17,6 +17,10 @@ class examenfinal extends CI_Controller {
         foreach ($subcategorias->result() as $subcategoria) {
             $dataTest = $this->Preguntas->readFinalQuestionary($subcategoria->subcategoria);
             foreach ($dataTest->result() as $itemPregunta) {
+                $arrayRespuestas = $this->Respuestas->read($itemPregunta->id);
+                if($arrayRespuestas->num_rows() <= 0){
+                    continue;
+                }
                 $textoPregunta = "<li><p>$itemPregunta->pregunta:</p>";
                 $respuestaCorrecta = $itemPregunta->respuestacorrecta;
                 $arrayImagenes = $this->Imagenes->read($itemPregunta->id);
@@ -24,7 +28,6 @@ class examenfinal extends CI_Controller {
                     $textoPregunta = str_replace("[" . $itemImagen->nombre . "]", "<img width='70px' height='70px' class='img-polaroid' src='" . base_url("files") . "/$itemImagen->ruta'/>", $textoPregunta);
                 }
                 $html .= $textoPregunta;
-                $arrayRespuestas = $this->Respuestas->read($itemPregunta->id);
                 $html .= "<ol type='A' style='font-weight: bold;'>";
                 $consecutivoRespuesta = 1;
                 foreach ($arrayRespuestas->result() as $itemRespuesta) {

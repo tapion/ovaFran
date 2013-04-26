@@ -6,11 +6,11 @@ require_once("site.php");
 
 class rutaAprendizaje extends CI_Controller {
 
-    function index() {
+    function index($sistemaCodigo = "") {
         $this->load->model("Sistemas_digestivos_model", 'sistemas_digestivos', true);
         $sistemas = $this->sistemas_digestivos->selectAll();
         $parametersView = array(
-            array("view" => 'rutaAprendizaje/index', "parameters" => array("sistemas" => $sistemas))
+            array("view" => 'rutaAprendizaje/index', "parameters" => array("sistemas" => $sistemas,"codigoSistema"=>$sistemaCodigo))
         );
         site::loadView($parametersView);
     }

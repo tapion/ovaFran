@@ -1,5 +1,5 @@
 <script type="text/javascript">
-    var test = "<?php echo $test;?>";
+    var test = "<?php echo $test; ?>";
     var textPregunta = "";
     var arrayImagenes = new Array(); 
     $(document).ready(function(){
@@ -30,6 +30,17 @@
             return false;
         }
     }
+    function datosPreguntaCompletos(){
+        if(document.getElementById("pregunta").value == ""){
+            alert("Debe ingresar el contenido de la pregunta");
+            return false;
+        }
+        if(document.getElementById("valor").value == "" || isNaN(document.getElementById("valor").value)){
+            alert("El valor de la pregunta debe ser un valor númerico válido");
+            return false;
+        }
+        return true;
+    }
 </script>
 <style type="text/css">
     #contentTest { width: 49%; float: left;}
@@ -45,10 +56,10 @@
             <label class="control-label" from="pregunta">Subcategoria</label>
             <div class="controls">
                 <select id="subcategorias" name="subcategorias">
-                    <?php  
-                        foreach($arraySubcategorias->result() as $itemSubcategoria){
-                            echo "<option id='$itemSubcategoria->id' value='$itemSubcategoria->subcategoria' >".$itemSubcategoria->subcategoria."</option>";
-                        }
+                    <?php
+                    foreach ($arraySubcategorias->result() as $itemSubcategoria) {
+                        echo "<option id='$itemSubcategoria->id' value='$itemSubcategoria->subcategoria' >" . $itemSubcategoria->subcategoria . "</option>";
+                    }
                     ?>
                 </select>
             </div>
@@ -72,16 +83,16 @@
                 <select name="respuestacorrecta" id="respuestacorrecta"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> 
             </div>
         </div>
-        <div>
+<!--        <div>
             <div class="control-group">
                 <div class="controls">
                     <input type="submit" value="Guardar" class="btn btn-primary"/> 
                 </div>
             </div>
-        </div>
+        </div>-->
     </form>
     <legend>Previzualización de pregunta</legend>
     <p id="prevPregunta"><?php echo $pregunta; ?></p> 
-    
+
     <button class="btn" onclick="prev();">Previsualizar</button>
 </div>
