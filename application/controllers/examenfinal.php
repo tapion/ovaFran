@@ -44,7 +44,6 @@ class examenfinal extends CI_Controller {
             }
         }
         $html .= "</ol><br/><button id='finexamen' class='btn btn-large btn-inverse'>Guardar y Enviar</button>";
-        $this->load->library('session');
         $username = $this->session->userdata("username");
         $parameters = array('html' => $html, 'subcategorias' => json_encode($subcategorias->result()), 'user'=> $username);
         $parametersView = array(
@@ -58,8 +57,8 @@ class examenfinal extends CI_Controller {
         $Subcategorias  = $_POST["arraySubcategorias"];
         $Resultados = $_POST["arrayResultados"];
         $this->load->model("Respuestas_model", 'Respuestas', true);
-        $arraySubcategorias = split(',',$Subcategorias);
-        $arrayResultados = split(',',$Resultados);
+        $arraySubcategorias = explode(',',$Subcategorias);
+        $arrayResultados = explode(',',$Resultados);
         $fechacreacion = date('d/m/y H:m:s');
         echo count($arraySubcategorias);
         $this->Respuestas->deleteResultadosUsuario($username);
@@ -74,6 +73,9 @@ class examenfinal extends CI_Controller {
         $usersCol = $this->respuestas->consultarUsuarios();
         $htmlUsers = "";
         foreach ($usersCol->result() as $item){
+            if($item->username == ""){
+                continue;
+            }
             $htmlUsers .= "<option value='$item->username'>$item->username</option>";
         }
         $parameters = array('users' => $htmlUsers);
@@ -91,6 +93,16 @@ class examenfinal extends CI_Controller {
             $return .= "<tr><td>$item->subcategoria</td><td>$item->resultado</td></tr>";
         }
         echo $return;
+    }
+    public function estadisticasGenerales(){
+        $this->load->model("Respuestas_model", 'respuestas', true);
+//        $return = "";
+//        $username = $_POST["userid"];
+        $usersCol = $this->respuestas->obtieneResultadosGenerales();
+//        foreach ($usersCol->result() as $item){
+//            $return .= "<tr><td>$item->subcategoria</td><td>$item->resultado</td></tr>";
+//        }
+//        echo $return;
     }
 
 }

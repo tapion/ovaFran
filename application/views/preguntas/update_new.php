@@ -83,13 +83,6 @@
                 <select name="respuestacorrecta" id="respuestacorrecta"><option value="1">1</option><option value="2">2</option><option value="3">3</option><option value="4">4</option></select> 
             </div>
         </div>
-<!--        <div>
-            <div class="control-group">
-                <div class="controls">
-                    <input type="submit" value="Guardar" class="btn btn-primary"/> 
-                </div>
-            </div>
-        </div>-->
     </form>
     <legend>Previzualización de pregunta</legend>
     <p id="prevPregunta"><?php echo $pregunta; ?></p> 

@@ -57,5 +57,27 @@ class Respuestas_model extends CI_Model {
     function consultarResultadosFinal($username){
         return $this->db->query("SELECT id, subcategoria, resultado FROM cuestionario.resultados_examen_final WHERE username = '$username' order by id asc ");
     }
+    public function obtieneResultadosGenerales(){
+        $sql = 'SELECT subcategoria 
+	,coalesce((SELECT count(username) 
+		FROM resultados_examen_final 
+		where resultado = "Bueno" 
+		and resultados_examen_final.username <> ""
+		and resultados_examen_final.subcategoria = subcategorias.subcategoria 
+		group by resultado),0) as Bueno
+	,coalesce((SELECT count(username) 
+		FROM resultados_examen_final 
+		where resultado = "Regular" 
+		and resultados_examen_final.subcategoria = subcategorias.subcategoria 
+		and resultados_examen_final.username <> ""
+		group by resultado),0) as Regular
+	,coalesce((SELECT count(username) 
+		FROM resultados_examen_final 
+		where resultado = "Malo" 
+		and resultados_examen_final.subcategoria = subcategorias.subcategoria 
+		and resultados_examen_final.username <> ""
+		group by resultado),0) as Malo
+FROM subcategorias where sistema_digestivo = "final" order by subcategoria';
+    }
 
 }
