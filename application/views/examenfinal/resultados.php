@@ -30,7 +30,7 @@
                 dataType: "JSON",
                 data: {},
                 success: function(html){
-                    drawChart(GLOBAL.parametros);
+                    drawChart(html);
                     document.getElementById("divResultGrupo").style.display = "block";
                 }
             }); 
