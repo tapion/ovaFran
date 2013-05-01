@@ -31,12 +31,5 @@ class Site extends CI_Controller {
         $this->load->view('footer_view.php');
     }
 
-//    function logout() {
-//        $this->load->library('session');
-//        $this->session->sess_destroy();
-//        $this->load->view('header_view');
-//        $this->load->view('login/login');
-//    }
-
 }
 
