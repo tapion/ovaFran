@@ -44,22 +44,16 @@
             <div class="modal-body" style="width:80%;text-align:center">
                 <img src="<?php echo base_url("img/cargando.gif"); ?>" alt="Cargando" style="height: 70px;width:70px" />
             </div>
-            <!--        <div class="modal-footer">
-                        <button class="btn" data-dismiss="modal" aria-hidden="true">Close</button>
-                        <button class="btn btn-primary">Save changes</button>
-                    </div>-->
         </div>
         <div id="header" class="container navbar navbar-inverse navbar-static-top">
             <div class="navbar-inner">
                 <a class="brand" href="#">Aprendizaje del Sistema Digestivo Humano</a>
                 <ul class="nav">
                     <li class="active">
-                        <a href="<?php echo base_url(); ?>">Inicio</a>
+                        <a href="<?php echo base_url().'?nom='.$this->session->userdata("nom"); ?>">Inicio</a>
                     </li>
-                    <!--<li><a href="<?php echo base_url("index.php/test"); ?>">Test</a></li>-->
                     <li><a href="<?php echo base_url("index.php/responderRuta"); ?>">Rutas de Aprendizaje</a></li>
                     <li><a href="<?php echo base_url("index.php/examenfinal"); ?>">Examen Final</a></li>
-                    <li><a href="<?php echo site_url("site/logout"); ?>">Cerrar Sesión</a></li>
                 </ul>
             </div>
         </div>
@@ -73,6 +67,5 @@
                 <strong>¡Atención!</strong> <span id="spAlerta"></span>
             </div>
             <div class="alert alert-success fade in" id="divAlertaBien" style="display: none;">
-<!--                <button type="button" class="close" data-dismiss="alert">&times;</button>-->
                 <strong>Ok</strong> <span id="spAlertaBien"></span>
             </div>

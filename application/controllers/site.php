@@ -16,7 +16,7 @@ class Site extends CI_Controller {
         if (isset($userData[0]->id)) {
             $this->load->view('header_view');
             $this->load->view('site/index', array("role_id" => $userData[0]->roleid));
-            $newUserData = array("userid" => $userData[0]->id, "username" => $userData[0]->username, "role_id" => $userData[0]->roleid);
+            $newUserData = array("userid" => $userData[0]->id, "username" => $userData[0]->username, "role_id" => $userData[0]->roleid,'nom'=>$_GET["nom"]);
             $this->session->set_userdata($newUserData);
         } else {
             exit('Usuario no existe');
@@ -31,12 +31,12 @@ class Site extends CI_Controller {
         $this->load->view('footer_view.php');
     }
 
-    function logout() {
-        $this->load->library('session');
-        $this->session->sess_destroy();
-        $this->load->view('header_view');
-        $this->load->view('login/login');
-    }
+//    function logout() {
+//        $this->load->library('session');
+//        $this->session->sess_destroy();
+//        $this->load->view('header_view');
+//        $this->load->view('login/login');
+//    }
 
 }
 
