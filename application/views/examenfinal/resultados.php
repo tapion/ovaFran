@@ -30,10 +30,8 @@
                 dataType: "JSON",
                 data: {},
                 success: function(html){
-                    GLOBAL.parametros = html;
-                    console.log(html)
+                    drawChart(GLOBAL.parametros);
                     document.getElementById("divResultGrupo").style.display = "block";
-                    $("#tresult").html(html);
                 }
             }); 
         
