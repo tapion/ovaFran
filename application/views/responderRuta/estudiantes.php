@@ -173,13 +173,14 @@
             if ($this->session->userdata("role_id") == 3) {
                 $registroRutaAprendizaje .= "<td><button id='del$arrayItem->id' class='btn btn-danger deleteruta' ruta='$arrayItem->id'>Eliminar Ruta de Aprendizaje</button></td>";
                 $registroRutaAprendizaje .= "<td><button id='edit$arrayItem->id' class='btn btn-warning ' onclick=\"editarRuta('$arrayItem->sistema_digestivo_codigo')\">Editar Ruta de Aprendizaje</button></td>";
+            } else {
+                if ($arrayItem->username) {
+                    $classTr = 'success';
+                    $classBtn = 'disabled';
+                    $onclick = '';
+                }
             }
             $registroRutaAprendizaje .= "</tr>";
-            if ($arrayItem->username) {
-                $classTr = 'success';
-                $classBtn = 'disabled';
-                $onclick = '';
-            }
             echo sprintf($registroRutaAprendizaje, $classTr, strtoupper($arrayItem->nombre), $classBtn, $onclick);
         }
         ?>
