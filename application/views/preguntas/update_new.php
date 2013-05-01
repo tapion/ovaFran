@@ -17,7 +17,7 @@
         $("#prevPregunta").html(textPregunta);
     }
     function validacionesFormulario(){
-        if(isNaN(parseInt(document.getElementById("valor").value))){
+        if((parseInt(test) > 0) && isNaN(parseInt(document.getElementById("valor").value))){
             alert("Debe ingresar un valor numerico en el campo valor");
             return false;
         }
@@ -35,7 +35,7 @@
             alert("Debe ingresar el contenido de la pregunta");
             return false;
         }
-        if(document.getElementById("valor").value == "" || isNaN(document.getElementById("valor").value)){
+        if((parseInt(test) > 0) && document.getElementById("valor").value == "" || isNaN(document.getElementById("valor").value)){
             alert("El valor de la pregunta debe ser un valor númerico válido");
             return false;
         }
