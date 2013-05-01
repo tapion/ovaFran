@@ -1,4 +1,7 @@
 <script type="text/javascript">
+    var GLOBAL = {
+        parametros: [],
+    }
     $(function(){
         $("#users").change(function(){
             $.ajax({
@@ -24,8 +27,11 @@
         $.ajax({
                 url: "<?php echo site_url("examenfinal/estadisticasGenerales") ?>",
                 type: "POST",
+                dataType: "JSON",
                 data: {},
                 success: function(html){
+                    GLOBAL.parametros = html;
+                    console.log(html)
                     document.getElementById("divResultGrupo").style.display = "block";
                     $("#tresult").html(html);
                 }
@@ -70,19 +76,11 @@
 <script type="text/javascript" src="https://www.google.com/jsapi"></script>
 <script type="text/javascript">
     google.load("visualization", "1", {packages:["corechart"]});
-//    google.setOnLoadCallback(drawChart);
-    function drawChart() {
-        var data = google.visualization.arrayToDataTable([
-            ['Year', 'Sales', 'Expenses'],
-            ['2004',  1000,      400],
-            ['2005',  1170,      460],
-            ['2006',  660,       1120],
-            ['2007',  1030,      540]
-        ]);
-
+    function drawChart(arreglo) {
+        var data = google.visualization.arrayToDataTable(arreglo);
         var options = {
-            title: 'Unidades conocimiento',
-            hAxis: {title: 'Cosas conocimiento', titleTextStyle: {color: 'red'}}
+            title: 'Estadística general',
+            hAxis: {title: 'Operaciones Mentales', titleTextStyle: {color: 'red'}}
         };
 
         var chart = new google.visualization.ColumnChart(document.getElementById('chart_div'));

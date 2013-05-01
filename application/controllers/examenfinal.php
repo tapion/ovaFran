@@ -96,13 +96,13 @@ class examenfinal extends CI_Controller {
     }
     public function estadisticasGenerales(){
         $this->load->model("Respuestas_model", 'respuestas', true);
-//        $return = "";
-//        $username = $_POST["userid"];
-        $usersCol = $this->respuestas->obtieneResultadosGenerales();
-//        foreach ($usersCol->result() as $item){
-//            $return .= "<tr><td>$item->subcategoria</td><td>$item->resultado</td></tr>";
-//        }
-//        echo $return;
+        $datosReporte = $this->respuestas->obtieneResultadosGenerales();
+        $datos = array();
+        array_push($datos,array('Proceso','Bueno','Regular','Malo'));
+        foreach($datosReporte->result() as $proceso){
+            array_push($datos,array($proceso->subcategoria,intval($proceso->Bueno),intval($proceso->Regular),intval($proceso->Malo)));
+        }
+        echo json_encode($datos);
     }
 
 }
