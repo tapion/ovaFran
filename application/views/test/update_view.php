@@ -7,8 +7,8 @@
     });
     function valValorAprobacion(){
         var cincuentaPor = parseInt(GLOBAL.valtotalPreguntas) + 0.5;
-        if(parseInt(document.getElementById("valor").value) < parseInt(cincuentaPor)){
-            alert("El valor de aprobación no debe ser menor al 50% del valor total de las preguntas");
+        if(parseInt(document.getElementById("valor").value) > parseInt(cincuentaPor)){
+            alert("El valor de aprobación no debe ser mayor al 50% del valor total de las preguntas");
             return false;
         }
         if(parseInt(document.getElementById("valor").value) > parseInt(cincuentaPor)){
