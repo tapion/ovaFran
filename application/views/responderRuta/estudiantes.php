@@ -196,7 +196,8 @@
             <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="600" height="400">
                 <param name="movie" id="paramComic" />
                 <param name="quality" value="high" />
-                <embed id="embedComic"  quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="600" height="400"></embed>
+                <param name="allowfullscreen" value="true" />
+                <embed id="embedComic" allowfullscreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="600" height="400"></embed>
             </object>
         </div>
         <div id="divVideo" class="divElementosOrden">
@@ -207,7 +208,8 @@
             <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="600" height="400">
                 <param id="paramPresentacion" name="movie" />';
                 <param name="quality" value="high" />
-                <embed id="embedPresentacion" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="600" height="400"></embed>
+                <param name="allowfullscreen" value="true" />
+                <embed id="embedPresentacion" allowfullscreen="true" quality="high" pluginspage="http://www.macromedia.com/go/getflashplayer" type="application/x-shockwave-flash" width="600" height="400"></embed>
             </object>        
         </div>
         <div id="divActividad">
