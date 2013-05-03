@@ -174,11 +174,13 @@
                 $registroRutaAprendizaje .= "<td><button id='del$arrayItem->id' class='btn btn-danger deleteruta' ruta='$arrayItem->id'>Eliminar Ruta de Aprendizaje</button></td>";
                 $registroRutaAprendizaje .= "<td><button id='edit$arrayItem->id' class='btn btn-warning ' onclick=\"editarRuta('$arrayItem->sistema_digestivo_codigo')\">Editar Ruta de Aprendizaje</button></td>";
             } else {
-                if ($arrayItem->username) {
-                    $classTr = 'success';
-                    $classBtn = 'disabled';
-                    $onclick = '';
+                if ($arrayItem->sistema_orden > 1 || $arrayItem->username != "") {
+                    if ($arrayItem->ult_resp >= $arrayItem->id || $arrayItem->ult_resp == "" ) {
+                        $classBtn = 'disabled';
+                        $onclick = '';
+                    }
                 }
+                if($arrayItem->username) $classTr = 'success';
             }
             $registroRutaAprendizaje .= "</tr>";
             echo sprintf($registroRutaAprendizaje, $classTr, strtoupper($arrayItem->nombre), $classBtn, $onclick);
