@@ -51,7 +51,7 @@ class Preguntas_model extends CI_Model {
     public function nombreTest($id) {
         $nombre = $this->db->query("select nombre from test where id = $id");
         if($nombre->num_rows() > 0){
-            $nombre->result();
+            $nombre = $nombre->result();
             return $nombre[0]->nombre;
         }else{
             return "EXAMEN FINAL";
