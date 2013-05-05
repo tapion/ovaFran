@@ -20,14 +20,14 @@
             <ol>
                 <li>Los estudiantes ejecutan responden las rutas de aprendizaje creadas por el docente.</li>
             </ol>
-            <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/responderRuta/index"); ?>';">Responder Rutas de Aprendizaje</button>
+            <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/responderRuta/index"); ?>';">Responder rutas de aprendizaje</button>
         </div>
         <br/>
         <div class="control">
             <ol start="2">
-                <li>Responder Examen Final.</li>
+                <li>Responder examen final.</li>
             </ol>
-            <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/examenfinal"); ?>';">Responder Examen Final</button>
+            <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/examenfinal"); ?>';">Responder examen final</button>
         </div>
         <br/>
     </div>
@@ -37,28 +37,28 @@
             <ol >
                 <li>Ejecute el proceso de creación de test.</li>
             </ol>
-            <button style="width: 300px; margin-left: 25px;"  class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/test/"); ?>';">Crear Test</button>
+            <button style="width: 300px; margin-left: 25px;"  class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/test/"); ?>';">Crear test</button>
         </div>
         <br/>
         <div class="control">
             <ol start='2'>
                 <li>Preguntas para examen final.</li>
             </ol>
-            <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/pregunta/index/-1"); ?>';">Crear Preguntas para Examen Final</button>
+            <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/pregunta/index/-1"); ?>';">Crear preguntas para examen final</button>
         </div>
         <br/>
         <div class="control">
             <ol start='3'>
-                <li>Ejecuta el proceso de creacion para las rutas de aprendizaje que los estudiantes desarrollaran por medio de la aplicacion.</li>
+                <li>Ejecuta el proceso de creación para las rutas de aprendizaje que los estudiantes desarrollaran por medio de la aplicación.</li>
             </ol>
-            <button style="width: 300px; margin-left: 25px;"  class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/rutaAprendizaje/index"); ?>';">Crear Ruta de Aprendizaje</button>
+            <button style="width: 300px; margin-left: 25px;"  class="btn btn-large btn-inverse" onclick="window.location = '<?php echo base_url("index.php/rutaAprendizaje/index"); ?>';">Crear ruta de aprendizaje</button>
         </div>
         <br/>
         <div class="control">
             <ol start='4'>
-                <li>Resultados Examen Final.</li>
+                <li>Resultados examen final.</li>
             </ol>
-            <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo site_url("examenfinal/verResultadosFinalesView"); ?>';">Ver Resultados</button>
+            <button style="width: 300px; margin-left: 25px;" class="btn btn-large btn-inverse" onclick="window.location = '<?php echo site_url("examenfinal/verResultadosFinalesView"); ?>';">Ver resultados</button>
         </div>
     </div>
 </div>

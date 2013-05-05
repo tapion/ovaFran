@@ -12,16 +12,18 @@ class examenfinal extends CI_Controller {
         $this->load->model("Preguntas_model", 'Preguntas', true);
         $this->load->model("Respuestas_model", 'Respuestas', true);
         $this->load->model("Imagenes_model", 'Imagenes', true);
+        $names = array();
         $html = "<ol>";
         $subcategorias = $this->Subcategorias->getsubcategoriasFinalQuestionary();
         foreach ($subcategorias->result() as $subcategoria) {
             $dataTest = $this->Preguntas->readFinalQuestionary($subcategoria->subcategoria);
             foreach ($dataTest->result() as $itemPregunta) {
+                array_push($names,'preg'.$itemPregunta->id);
                 $arrayRespuestas = $this->Respuestas->read($itemPregunta->id);
                 if($arrayRespuestas->num_rows() <= 0){
                     continue;
                 }
-                $textoPregunta = "<li><p>$itemPregunta->pregunta:</p>";
+                $textoPregunta = "<li><p class='pPregunta'>$itemPregunta->pregunta:</p>";
                 $respuestaCorrecta = $itemPregunta->respuestacorrecta;
                 $arrayImagenes = $this->Imagenes->read($itemPregunta->id);
                 foreach ($arrayImagenes->result() as $itemImagen) {
@@ -36,16 +38,16 @@ class examenfinal extends CI_Controller {
                         if ($consecutivoRespuesta == $respuestaCorrecta)
                             $funcionJavaScriptSuma = 1;
                         $subcategoriaTexto = str_replace(" ", "_", $subcategoria->subcategoria);
-                        $html .= "<li><input style='display: inline-block;' class='". $subcategoriaTexto ."' name='preg$itemPregunta->id' type='radio' correcta='$funcionJavaScriptSuma' id='radio$itemRespuesta->id' value='$itemRespuesta->id'/><label style='display: inline-block; margin-left: 10px;' for='radio$itemRespuesta->id'>$itemRespuesta->texto</label></li>";
+                        $html .= "<li><input style='display: inline-block;' class='". $subcategoriaTexto ."' name='preg$itemPregunta->id' type='radio' correcta='$funcionJavaScriptSuma' id='radio$itemRespuesta->id' value='$itemRespuesta->id'/><label class='lbRespuesta' for='radio$itemRespuesta->id'>$itemRespuesta->texto</label></li>";
                         $consecutivoRespuesta++;
                     }
                 }
                 $html .= "</ol></li>";
             }
         }
-        $html .= "</ol><br/><button id='finexamen' class='btn btn-large btn-inverse'>Guardar y Enviar</button>";
+        $html .= "</ol><br/><button id='finexamen' class='btn btn-large btn-inverse'>Guardar y enviar</button>";
         $username = $this->session->userdata("username");
-        $parameters = array('html' => $html, 'subcategorias' => json_encode($subcategorias->result()), 'user'=> $username);
+        $parameters = array('html' => $html, 'subcategorias' => json_encode($subcategorias->result()), 'user'=> $username,"nombres"=>  json_encode($names));
         $parametersView = array(
             array("view" => 'examenfinal/index', "parameters" => $parameters)
         );

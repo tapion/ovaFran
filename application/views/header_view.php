@@ -17,6 +17,7 @@
         <script src="<?php echo base_url() . "js/bootstrap-tooltip.js" ?>" type="text/javascript" ></script>
         <script src="<?php echo base_url() . "js/bootstrap-transition.js" ?>" type="text/javascript" ></script>
         <script src="<?php echo base_url() . "js/bootstrap-typeahead.js" ?>" type="text/javascript" ></script>
+        <script src="<?php echo base_url() . "js/ova.js" ?>" type="text/javascript" ></script>
         <link href="<?php echo base_url() . "css/css/bootstrap.css" ?>" type="text/css" rel="stylesheet" />
         <link href="<?php echo base_url() . "css/site.css" ?>" type="text/css" rel="stylesheet" />
 
@@ -47,13 +48,13 @@
         </div>
         <div id="header" class="container navbar navbar-inverse navbar-static-top">
             <div class="navbar-inner">
-                <a class="brand" href="#">Aprendizaje del Sistema Digestivo Humano</a>
+                <a class="brand" href="#">Aprendizaje del sistema digestivo humano</a>
                 <ul class="nav">
                     <li class="active">
                         <a href="<?php echo base_url().'?nom='.$this->session->userdata("nom"); ?>">Inicio</a>
                     </li>
-                    <li><a href="<?php echo base_url("index.php/responderRuta"); ?>">Rutas de Aprendizaje</a></li>
-                    <li><a href="<?php echo base_url("index.php/examenfinal"); ?>">Examen Final</a></li>
+                    <li><a href="<?php echo base_url("index.php/responderRuta"); ?>">Rutas de aprendizaje</a></li>
+                    <li><a href="<?php echo base_url("index.php/examenfinal"); ?>">Examen final</a></li>
                 </ul>
             </div>
         </div>

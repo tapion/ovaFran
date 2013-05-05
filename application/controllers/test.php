@@ -71,6 +71,7 @@ class Test extends CI_Controller {
     function getTestHtml() {
         try {
             $id = $_GET["id"];
+            $names = array();
             $this->load->model("Test_model", 'Test', true);
             $this->load->model("Preguntas_model", 'Preguntas', true);
             $this->load->model("Respuestas_model", 'Respuestas', true);
@@ -81,7 +82,8 @@ class Test extends CI_Controller {
             $html = "<ol>";
             $dataTest = $this->Preguntas->readTest($id);
             foreach ($dataTest->result() as $itemPregunta) {
-                $textoPregunta = "<li><p>$itemPregunta->pregunta:</p>";
+                array_push($names, 'preg'.$itemPregunta->id);
+                $textoPregunta = "<li><p class='pPregunta'>$itemPregunta->pregunta:</p>";
                 $respuestaCorrecta = $itemPregunta->respuestacorrecta;
                 $valorRespuestaCorrecta = $itemPregunta->valor;
                 $arrayImagenes = $this->Imagenes->read($itemPregunta->id);
@@ -98,15 +100,15 @@ class Test extends CI_Controller {
                         $funcionJavaScriptSuma = "";
                         if ($consecutivoRespuesta == $respuestaCorrecta)
                             $funcionJavaScriptSuma = "onclick='sumar($valorRespuestaCorrecta);'";
-                        $html .= "<li><input style='display: inline-block;' name='preg$itemPregunta->id' type='radio' $funcionJavaScriptSuma id='radio$itemRespuesta->id' value='$itemRespuesta->id'/><label style='display: inline-block; margin-left: 10px;' for='radio$itemRespuesta->id'>$itemRespuesta->texto</label></li>";
+                        $html .= "<li><input style='display: inline-block;' name='preg$itemPregunta->id' type='radio' $funcionJavaScriptSuma id='radio$itemRespuesta->id' value='$itemRespuesta->id'/><label class='lbRespuesta' for='radio$itemRespuesta->id'>$itemRespuesta->texto</label></li>";
                         $consecutivoRespuesta++;
                     }
                     $cantidadPreguntas++;
                 }
                 $html .= "</ol></li>";
             }
-            $html .= "</ol><br/><input type='hidden' id='valtest' value='$valortest'/> <button class='btn btn-large btn-inverse' onclick=\"validarResultadoTest();\">Terminar Test</button>";
-            echo $html;
+            $html .= "</ol><br/><input type='hidden' id='valtest' value='$valortest'/> <button class='btn btn-large btn-inverse' onclick=\"validarResultadoTest();\">Terminar test</button>";
+            echo json_encode(array("nombres"=>$names,"html"=>$html));
         } catch (Exception $exc) {
             echo "";
         }

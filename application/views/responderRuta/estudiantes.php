@@ -6,6 +6,7 @@
 <script type="text/javascript">
     var GLOBAL = {
         elementosEnOrden:[],
+        nombresPreguntas: [],
         rutaAprendizajeView:'',
         rutaAprendizajeId: 0,
         ordenVisualizar: 0,
@@ -34,45 +35,51 @@
     }
     var resultadoTest=0;
     var valorAprobacionTest = 0;
-    var siguienteInstrumento = 1;
+    //    var siguienteInstrumento = 1;
     var intentosFallidos = 0;
-    var dataOcultar = "";
+    //    var dataOcultar = "";
     var htmlTest = "";
     function sumar(valor){
         resultadoTest = resultadoTest + valor;
     }
     function validarResultadoTest(){
-        if(parseInt(valorAprobacionTest) <= resultadoTest){
-            alert('Muy bien!, El test fue superado correctamente. \n El resultado obtenido fue ' + resultadoTest + '/' + valorAprobacionTest);
-            $.ajax({
-                url: "<?php echo site_url("test/saveResultTest"); ?>",
-                type: "POST",
-                data: {"testid": GLOBAL.elementosEnOrden[0].valor , "intentos": intentosFallidos,'ultimoOrden': GLOBAL.rutaAprendizajeView,'rutaId':GLOBAL.rutaAprendizajeId },
-                success: function(){
-                    intentosFallidos = 0;
-                    window.location = '<?php echo base_url("index.php/responderRuta"); ?>';
-                }
+        if(repondioTodoTest(GLOBAL.nombresPreguntas)){
+            if(parseInt(valorAprobacionTest) <= resultadoTest){
+                alert('Muy bien!, El test fue superado correctamente. \n El resultado obtenido fue ' + resultadoTest + '/' + valorAprobacionTest);
+                $.ajax({
+                    url: "<?php echo site_url("test/saveResultTest"); ?>",
+                    type: "POST",
+                    data: {"testid": GLOBAL.elementosEnOrden[0].valor , "intentos": intentosFallidos,'ultimoOrden': GLOBAL.rutaAprendizajeView,'rutaId':GLOBAL.rutaAprendizajeId },
+                    success: function(){
+                        intentosFallidos = 0;
+                        window.location = '<?php echo base_url("index.php/responderRuta"); ?>';
+                    }
                 
-            });
-        }
-        else{
-            $("#test").html("");
-            alert('Lo sentimos!, Vuelve a intentarlo. \n Resultado obtenido: ' + resultadoTest + '/' + valorAprobacionTest);
-            GLOBAL.ordenVisualizar ++;
-            if(GLOBAL.ordenVisualizar > 3){
-                GLOBAL.ordenVisualizar = 1;
+                });
             }
-            resultadoTest = 0;
-            gestionaOcultarVisualizarControles();
+            else{
+                $("#test").html("");
+                alert('Lo sentimos!, Vuelve a intentarlo. \n Resultado obtenido: ' + resultadoTest + '/' + valorAprobacionTest);
+                GLOBAL.ordenVisualizar ++;
+                if(GLOBAL.ordenVisualizar > 3){
+                    GLOBAL.ordenVisualizar = 1;
+                }
+                resultadoTest = 0;
+                gestionaOcultarVisualizarControles();
+            }
+        }else{
+            alert("Debes responder todo el test, antes de continuar.")
         }
     }
     function gestionaOcultarVisualizarControles(){
         $.ajax({
             url: "<?php echo base_url("index.php/test/getTestHtml"); ?>",
             type: "GET",
+            dataType: 'JSON',
             data: {"id": GLOBAL.elementosEnOrden[0].valor},
-            success: function(html){
-                htmlTest = "<legend>Test Evaluativo</legend>" + html;
+            success: function(respuesta){
+                GLOBAL.nombresPreguntas = respuesta.nombres;
+                htmlTest = "<legend>Test evaluativo</legend>" + respuesta.html;
                 $("#test").html(htmlTest);
                 valorAprobacionTest = $("#valtest").val();
             },
@@ -156,7 +163,7 @@
         return true;
     }
 </script>
-<h1>Listado de Rutas de aprendizaje a responder</h1>
+<h1>Listado de rutas de aprendizaje a responder</h1>
 <table id="rutasAprendizaje" class="table table-bordered table-hover">
     <thead>
         <tr>
@@ -169,18 +176,19 @@
             $classBtn = '';
             $classTr = '';
             $onclick = 'onclick=\'cargaDatosIniciales("' . $arrayItem->data . '",' . $arrayItem->id . ',"' . $arrayItem->ult_orden . '");\'';
-            $registroRutaAprendizaje = "<tr class='%s'><td>%s</td><td><input type='button' class='btn btn-large btn-inverse %s' %s value='Realizar Evaluación'/></td>";
+            $registroRutaAprendizaje = "<tr class='%s'><td>%s</td><td><input type='button' class='btn btn-large btn-inverse %s' %s value='Realizar evaluación'/></td>";
             if ($this->session->userdata("role_id") == 3) {
-                $registroRutaAprendizaje .= "<td><button id='del$arrayItem->id' class='btn btn-danger deleteruta' ruta='$arrayItem->id'>Eliminar Ruta de Aprendizaje</button></td>";
-                $registroRutaAprendizaje .= "<td><button id='edit$arrayItem->id' class='btn btn-warning ' onclick=\"editarRuta('$arrayItem->sistema_digestivo_codigo')\">Editar Ruta de Aprendizaje</button></td>";
+                $registroRutaAprendizaje .= "<td><button id='del$arrayItem->id' class='btn btn-danger deleteruta' ruta='$arrayItem->id'>Eliminar ruta de aprendizaje</button></td>";
+                $registroRutaAprendizaje .= "<td><button id='edit$arrayItem->id' class='btn btn-warning ' onclick=\"editarRuta('$arrayItem->sistema_digestivo_codigo')\">Editar ruta de aprendizaje</button></td>";
             } else {
                 if ($arrayItem->sistema_orden > 1 || $arrayItem->username != "") {
-                    if ($arrayItem->ult_resp >= $arrayItem->id || $arrayItem->ult_resp == "" ) {
+                    if ($arrayItem->ult_resp >= $arrayItem->id || $arrayItem->ult_resp == "") {
                         $classBtn = 'disabled';
                         $onclick = '';
                     }
                 }
-                if($arrayItem->username) $classTr = 'success';
+                if ($arrayItem->username)
+                    $classTr = 'success';
             }
             $registroRutaAprendizaje .= "</tr>";
             echo sprintf($registroRutaAprendizaje, $classTr, strtoupper($arrayItem->nombre), $classBtn, $onclick);
@@ -189,7 +197,7 @@
     </tbody>
 </table>
 <div id="contentEvaliuacion" style="display: none;">
-    <h1>Ruta de Aprendizaje</h1>
+    <h1>Ruta de aprendizaje</h1>
     <div id="evaluacion">
         <div id="divComic" class="divElementosOrden">
             <legend>Comic</legend>
