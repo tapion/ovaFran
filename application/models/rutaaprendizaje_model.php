@@ -28,6 +28,10 @@ class RutaAprendizaje_model extends CI_Model {
         return $query;
     }
     public function rutasConRespuestas($username){
+//        exit('select sis.sistema_orden,(SELECT ultimo_orden_valido FROM resultados_test res1 where res1.username = \''.$username.'\' order by id desc limit 1) as ult_orden,res.username,(SELECT rutaaprendizaje_id FROM resultados_test res1 where res1.username = \''.$username.'\' order by id desc limit 1) as ult_resp,rut.* from rutaaprendizaje rut
+//            inner join sistemas_digestivos sis on sis.codigo = rut.sistema_digestivo_codigo
+//            left join resultados_test res on res.rutaaprendizaje_id = rut.id and res.username = \''.$username.'\'
+//            order by sis.sistema_orden');
         return $this->db->query('select sis.sistema_orden,(SELECT ultimo_orden_valido FROM resultados_test res1 where res1.username = \''.$username.'\' order by id desc limit 1) as ult_orden,res.username,(SELECT rutaaprendizaje_id FROM resultados_test res1 where res1.username = \''.$username.'\' order by id desc limit 1) as ult_resp,rut.* from rutaaprendizaje rut
             inner join sistemas_digestivos sis on sis.codigo = rut.sistema_digestivo_codigo
             left join resultados_test res on res.rutaaprendizaje_id = rut.id and res.username = \''.$username.'\'

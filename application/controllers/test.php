@@ -77,6 +77,7 @@ class Test extends CI_Controller {
             $this->load->model("Respuestas_model", 'Respuestas', true);
             $this->load->model("Imagenes_model", 'Imagenes', true);
             $testColleccion = $this->Test->selectOne($id);
+            $valTotalTest = 0;
             $testItem = $testColleccion->result();
             $valortest = $testItem[0]->valor;
             $html = "<ol>";
@@ -86,6 +87,7 @@ class Test extends CI_Controller {
                 $textoPregunta = "<li><p class='pPregunta'>$itemPregunta->pregunta:</p>";
                 $respuestaCorrecta = $itemPregunta->respuestacorrecta;
                 $valorRespuestaCorrecta = $itemPregunta->valor;
+                $valTotalTest += intval($valorRespuestaCorrecta);
                 $arrayImagenes = $this->Imagenes->read($itemPregunta->id);
                 foreach ($arrayImagenes->result() as $itemImagen) {
                     $textoPregunta = str_replace("[" . $itemImagen->nombre . "]", "<img width='70px' height='70px' class='img-polaroid' src='" . base_url("files") . "/$itemImagen->ruta'/>", $textoPregunta);
@@ -108,7 +110,7 @@ class Test extends CI_Controller {
                 $html .= "</ol></li>";
             }
             $html .= "</ol><br/><input type='hidden' id='valtest' value='$valortest'/> <button class='btn btn-large btn-inverse' onclick=\"validarResultadoTest();\">Terminar test</button>";
-            echo json_encode(array("nombres"=>$names,"html"=>$html));
+            echo json_encode(array("nombres"=>$names,"html"=>$html,"valTotal"=>$valTotalTest));
         } catch (Exception $exc) {
             echo "";
         }

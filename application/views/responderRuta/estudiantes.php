@@ -10,6 +10,7 @@
         rutaAprendizajeView:'',
         rutaAprendizajeId: 0,
         ordenVisualizar: 0,
+        totalTest: 0,
         srcActividad: "http://clic.xtec.cat/db/jclicApplet.jsp?project=<?php echo base_url("multimedia/Actividades/"); ?>/"
     }
     $(document).ready(function(){
@@ -35,9 +36,7 @@
     }
     var resultadoTest=0;
     var valorAprobacionTest = 0;
-    //    var siguienteInstrumento = 1;
     var intentosFallidos = 0;
-    //    var dataOcultar = "";
     var htmlTest = "";
     function sumar(valor){
         resultadoTest = resultadoTest + valor;
@@ -59,7 +58,7 @@
             }
             else{
                 $("#test").html("");
-                alert('Lo sentimos!, Vuelve a intentarlo. \n Resultado obtenido: ' + resultadoTest + '/' + valorAprobacionTest);
+                alert('Lo sentimos!, Vuelve a intentarlo. \n Resultado obtenido: ' + resultadoTest + '/' + GLOBAL.totalTest + '\n Valor de aprobación: ' + valorAprobacionTest);
                 GLOBAL.ordenVisualizar ++;
                 if(GLOBAL.ordenVisualizar > 3){
                     GLOBAL.ordenVisualizar = 1;
@@ -79,6 +78,7 @@
             data: {"id": GLOBAL.elementosEnOrden[0].valor},
             success: function(respuesta){
                 GLOBAL.nombresPreguntas = respuesta.nombres;
+                GLOBAL.totalTest = respuesta.valTotal;
                 htmlTest = "<legend>Test evaluativo</legend>" + respuesta.html;
                 $("#test").html(htmlTest);
                 valorAprobacionTest = $("#valtest").val();
@@ -182,7 +182,7 @@
                 $registroRutaAprendizaje .= "<td><button id='edit$arrayItem->id' class='btn btn-warning ' onclick=\"editarRuta('$arrayItem->sistema_digestivo_codigo')\">Editar ruta de aprendizaje</button></td>";
             } else {
                 if ($arrayItem->sistema_orden > 1 || $arrayItem->username != "") {
-                    if ($arrayItem->ult_resp >= $arrayItem->id || $arrayItem->ult_resp == "") {
+                    if ($arrayItem->ult_resp >= $arrayItem->id || $arrayItem->ult_resp == "" || $arrayItem->ult_resp < $arrayItem->id) {
                         $classBtn = 'disabled';
                         $onclick = '';
                     }
@@ -201,7 +201,7 @@
     <div id="evaluacion">
         <div id="divComic" class="divElementosOrden">
             <legend>Comic</legend>
-            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="600" height="400">
+            <object standBy="Cargando elemento" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="600" height="400">
                 <param name="movie" id="paramComic" />
                 <param name="quality" value="high" />
                 <param name="allowfullscreen" value="true" />
@@ -209,11 +209,12 @@
             </object>
         </div>
         <div id="divVideo" class="divElementosOrden">
+            <legend>Video</legend>
             <iframe id="iframeVideo" width="420" height="315" src="http://www.youtube.com/embed/nz2Xx5jtXRQ" frameborder="0" allowfullscreen></iframe>
         </div>
         <div id="divPresentacion" class="divElementosOrden">
             <legend>Presentación</legend>
-            <object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="600" height="400">
+            <object standBy="Cargando elemento" classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000" codebase="http://download.macromedia.com/pub/shockwave/cabs/flash/swflash.cab#version=6,0,29,0" width="600" height="400">
                 <param id="paramPresentacion" name="movie" />';
                 <param name="quality" value="high" />
                 <param name="allowfullscreen" value="true" />

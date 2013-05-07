@@ -232,16 +232,16 @@
         }
         ?>
     </select>
-    <legend>Comics Correspondientes a la categoria seleccionada.</legend>
+    <legend>Comic correspondiente a la categoría seleccionada.</legend>
     <ul id="comic"></ul>
     <div style="clear: both;">* Orden: <select id="ordencomic" onchange="validaOrden(this);"><option value="">Elija</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
-    <legend>Videos Correspondientes a la categoria seleccionada.</legend>
+    <legend>Video correspondiente a la categoría seleccionada.</legend>
     <ul id="videos"></ul>
     <div style="clear: both;">* Orden: <select id="ordenvideos" onchange="validaOrden(this);"><option value="">Elija</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select></div>
-    <legend>Actividades Correspondientes a la categoria seleccionada.</legend>
+    <legend>Presentación correspondiente a la categoría seleccionada.</legend>
     <ul id="actividades"></ul>
     <div style="clear: both;">* Orden: <select id="ordenactividades" onchange="validaOrden(this);"><option value="">Elija</option><option value="1">1</option><option value="2">2</option><option value="3">3</option></select> </div>
-    <legend>Tests Correspondientes a la categoria seleccionada.</legend>
+    <legend>Tests correspondientes a la categoría seleccionada.</legend>
     <ul id="test"></ul>
     <div style="clear: both;">* Orden: <select id="ordentest" ><option value="4">4</option></select></div>
     <input type="hidden" id="idRutaAprendizaje" name="idRutaAprendizaje" />
