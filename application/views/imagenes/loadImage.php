@@ -140,7 +140,7 @@
     <input name="saveRespuestas" id="saveRespuestas" type="submit" value="Guardar preguntas y respuestas" class="btn  btn-primary" />
 </div>
 <div>
-    <legend>Carga de Imagenes</legend>
+<!--    <legend>Carga de Imagenes</legend>
     <form action="<?php echo site_url("imagen/cargarImagen/$id/$test_id"); ?>" onsubmit="return existeImagen();" method="POST" enctype="multipart/form-data">
         <label for="file">Seleccione la imagen a cargar:</label>
         <input name="file" type="file" id="imagenLoad" />
@@ -148,7 +148,7 @@
         <input type="submit" value="Agregar Imagen" class="btn  btn-primary" />
     </form>
     <legend><h1>Listado de imagenes cargadas</h1></legend>
-    <div id="imagenesCargadas"></div>
+    <div id="imagenesCargadas"></div>-->
     <br/>
     <br/>
 </div>
