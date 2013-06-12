@@ -14,14 +14,18 @@ class Test_model extends CI_Model {
     }
 
     function create($data) {
-        $this->nombre = $data['nombre'];
-        $this->fechacreacion = $data['fechacreacion'];
-        $this->fechaactualizacion = $data['fechaactualizacion'];
-        $this->usuario_id = $data['usuario_id'];
-        $this->tipo = $data['tipo'];
-        $this->db->insert('test', $this);
-
-        return $this->db->affected_rows();
+        $query = $this->db->get_where('test', array("nombre" => $data['nombre']));
+        if ($query->num_rows() > 0) {
+            return false;
+        } else {
+            $this->nombre = $data['nombre'];
+            $this->fechacreacion = $data['fechacreacion'];
+            $this->fechaactualizacion = $data['fechaactualizacion'];
+            $this->usuario_id = $data['usuario_id'];
+            $this->tipo = $data['tipo'];
+            $this->db->insert('test', $this);
+            return $this->db->affected_rows();
+        }
     }
 
     function update($data) {
@@ -41,8 +45,9 @@ class Test_model extends CI_Model {
         $query = $this->db->get('test');
         return $query;
     }
+
     function getTestForSistem($getTestForSistem) {
-        $query = $this->db->get_where('test',array("tipo"=>$getTestForSistem));
+        $query = $this->db->get_where('test', array("tipo" => $getTestForSistem));
         return $query;
     }
 
@@ -57,7 +62,8 @@ class Test_model extends CI_Model {
 
         return $this->db->affected_rows();
     }
-    public function todosConTotal($where = "1 = 1"){
+
+    public function todosConTotal($where = "1 = 1") {
         return $this->db->query("SELECT tes.id,tes.nombre,coalesce(sum(pre.valor),0) as total,tes.valor,tes.fechacreacion,tes.tipo FROM test tes 
                                 left join preguntas pre on pre.idtest = tes.id
                                 where $where

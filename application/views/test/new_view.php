@@ -1,3 +1,8 @@
+<script>
+<?php if(!empty($nombre)){ ?>
+    alert('Ya existe un test con el nombre: <?php echo $nombre ?>');
+<?php } ?>
+</script>
 <div id="contentTest">
     <h1>Administracion de Test</h1>
     <p class="lead">Ingresa la información requerida para los campos disponibles, y genera un test completo luego de terminar el proceso.</p>
@@ -20,12 +25,6 @@
                 <input name="nombre" id="nombre" type="text" placeholder="Nombre del test" value=""/> 
             </div>
         </div>
-<!--        <div class="control-group">
-            <label class="control-label" from="valor">Valor de aprobación</label>
-            <div class="controls">
-                <input name="valor" id="valor" type="text" placeholder="Ingrese texto aqui..." value=""/> 
-            </div>
-        </div>-->
         <div>
             <div class="control-group">
                 <div class="controls">

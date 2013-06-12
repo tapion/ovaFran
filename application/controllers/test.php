@@ -17,9 +17,9 @@ class Test extends CI_Controller {
         site::loadView($parametersView);
     }
 
-    function form_new() {
+    function form_new($nombre = '') {
         $parametersView = array(
-            array("view" => 'test/new_view', "parameters" => '')
+            array("view" => 'test/new_view', "parameters" => array('nombre'=>$nombre))
         );
         site::loadView($parametersView);
     }
@@ -31,7 +31,7 @@ class Test extends CI_Controller {
         $variables["totPreguntas"] = $row[0]->total;
         $variables["id"] = $id;
         $variables["fechacreacion"] = $row[0]->fechacreacion;
-        $variables["nombre"] = (isset($row[0]->nombre))?$row[0]->nombre:"";
+        $variables["nombre"] = (isset($row[0]->nombre)) ? $row[0]->nombre : "";
         $variables["valor"] = $row[0]->valor;
         $variables["tipo"] = $row[0]->tipo;
         $variables["placeholder"] = 'Nombre No Asignado ...';
@@ -42,12 +42,15 @@ class Test extends CI_Controller {
     }
 
     function insert() {
-        $nombre = $_POST["nombre"];
+        $nombre = trim($_POST["nombre"]);
         $tipo = $_POST["tipo"];
         $this->load->model("Test_model", '', true);
         $data = array("nombre" => $nombre, "tipo" => $tipo, "fechacreacion" => date("Y/m/d H:i:s"), "fechaactualizacion" => date("Y/m/d H:i:s"), "usuario_id" => 1);
-        $this->Test_model->create($data);
-        redirect(site_url("test/index"));
+        if ($this->Test_model->create($data)) {
+            redirect(site_url("test/index"));
+        } else {            
+            redirect(site_url("test/form_new/".$nombre));
+        }
     }
 
     function update() {
@@ -83,7 +86,7 @@ class Test extends CI_Controller {
             $html = "<ol>";
             $dataTest = $this->Preguntas->readTest($id);
             foreach ($dataTest->result() as $itemPregunta) {
-                array_push($names, 'preg'.$itemPregunta->id);
+                array_push($names, 'preg' . $itemPregunta->id);
                 $textoPregunta = "<li><p class='pPregunta'>$itemPregunta->pregunta:</p>";
                 $respuestaCorrecta = $itemPregunta->respuestacorrecta;
                 $valorRespuestaCorrecta = $itemPregunta->valor;
@@ -110,7 +113,7 @@ class Test extends CI_Controller {
                 $html .= "</ol></li>";
             }
             $html .= "</ol><br/><input type='hidden' id='valtest' value='$valortest'/> <button class='btn btn-large btn-inverse' onclick=\"validarResultadoTest();\">Terminar test</button>";
-            echo json_encode(array("nombres"=>$names,"html"=>$html,"valTotal"=>$valTotalTest));
+            echo json_encode(array("nombres" => $names, "html" => $html, "valTotal" => $valTotalTest));
         } catch (Exception $exc) {
             echo "";
         }
@@ -122,7 +125,7 @@ class Test extends CI_Controller {
         $rutaaprendizajeId = $this->input->post("rutaId");
         $ultimoOrden = $this->input->post("ultimoOrden");
         $this->load->model("Respuestas_model", "respuestas", True);
-        $this->respuestas->insertResultadosTest($this->session->userdata("username"), $testid, $intentos,$rutaaprendizajeId,$ultimoOrden);
+        $this->respuestas->insertResultadosTest($this->session->userdata("username"), $testid, $intentos, $rutaaprendizajeId, $ultimoOrden);
         return true;
     }
 
